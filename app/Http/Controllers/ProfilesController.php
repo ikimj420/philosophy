@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Image;
 
 class ProfilesController extends Controller
 {
@@ -92,7 +93,6 @@ class ProfilesController extends Controller
             'bio' => 'sometimes',
             //no pics $user->pics = $filenameToStore;
             'filenameToStore' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-
         ]);
     }
 }
