@@ -11,11 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@welcome')->name('welcome');
 Route::get('profiles/{user}', 'ProfilesController@show')->name('profiles.show');
 Route::get('profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
 Route::patch('profiles/{user}', 'ProfilesController@update')->name('profiles.update');
