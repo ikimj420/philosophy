@@ -1,3 +1,4 @@
+{{--
 <div class="table-responsive">
     <table class="table" id="assignments-table">
         <thead>
@@ -30,3 +31,4 @@
         </tbody>
     </table>
 </div>
+--}}

@@ -30,12 +30,7 @@ class Assignment extends Model
 
 
 
-    public $fillable = [
-        'user_id',
-        'body',
-        'date',
-        'isDone'
-    ];
+    public $guarded = [];
 
     /**
      * The attributes that should be casted to native types.
@@ -56,9 +51,8 @@ class Assignment extends Model
      * @var array
      */
     public static $rules = [
-        'user_id' => 'required',
         'body' => 'required',
-        'isDone' => 'required'
+        'isDone' => 'sometimes'
     ];
 
     /**
@@ -66,6 +60,6 @@ class Assignment extends Model
      **/
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id');
+        return $this->belongsTo(\App\User::class, 'user_id');
     }
 }

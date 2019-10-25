@@ -1,23 +1,44 @@
-@extends('layouts.app')
-
+@extends('layouts.site')
 @section('content')
-<section class="content-header">
-    <h1>
-        Profile
-    </h1>
-</section>
-<div class="content">
-    @include('adminlte-templates::common.errors')
-    <div class="box box-primary">
-        <div class="box-body">
+    <style type="text/css" media="screen">
+        .s-styles {
+            background: #f2f2f2;
+            padding-top: 12rem;
+            padding-bottom: 12rem;
+        }
+
+        .s-styles .section-intro h1 {
+            margin-top: 0;
+        }
+    </style>
+    <!-- pageheader
+    ================================================== -->
+    <section class="s-pageheader s-pageheader--home">
+
+        @include('include.menu')
+
+    </section> <!-- end s-pageheader -->
+
+    <!-- styles
+        ================================================== -->
+    <section id="styles" class="s-styles">
+        <div class="row add-bottom">
+            @include('flash::message')
             <div class="row">
-                {!! Form::model($user, ['route' => ['profiles.update', $user->id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
 
-                @include('profiles.fields')
+                <div class="col-full s-content__main">
 
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
-</div>
+                    <h3 class="add-bottom">Profile</h3>
+
+                    {!! Form::model($user, ['route' => ['profiles.update', $user->id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
+
+                    @include('profiles.fields')
+
+                    {!! Form::close() !!}
+
+                </div>
+
+            </div> <!-- end row -->
+        </div> <!-- end row -->
+    </section> <!-- end styles -->
 @endsection

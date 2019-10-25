@@ -1,23 +1,42 @@
-@extends('layouts.app')
-
+@extends('layouts.site')
 @section('content')
-    <section class="content-header">
-        <h1>
-            Assignment
-        </h1>
-   </section>
-   <div class="content">
-       @include('adminlte-templates::common.errors')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($assignment, ['route' => ['assignments.update', $assignment->id], 'method' => 'patch']) !!}
+    <style type="text/css" media="screen">
+        .s-styles {
+            background: #f2f2f2;
+            padding-top: 12rem;
+            padding-bottom: 12rem;
+        }
 
-                        @include('assignments.fields')
+        .s-styles .section-intro h1 {
+            margin-top: 0;
+        }
+    </style>
+    <!-- pageheader
+    ================================================== -->
+    <section class="s-pageheader s-pageheader--home">
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+        @include('include.menu')
+
+    </section> <!-- end s-pageheader -->
+
+    <!-- styles
+        ================================================== -->
+    <section id="styles" class="s-styles">
+        <div class="row add-bottom">
+            @include('flash::message')
+            <div class="row">
+
+                <div class="col-full s-content__main">
+
+                    <h3 class="add-bottom">To-Do</h3>
+
+                    {!! Form::model($assignment, ['route' => ['assignments.update', $assignment->id], 'method' => 'patch']) !!}
+
+                    @include('assignments.fields')
+
+                    {!! Form::close() !!}
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end row -->
+    </section> <!-- end styles -->
 @endsection

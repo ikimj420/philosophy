@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateAssignmentRequest;
 use App\Http\Requests\UpdateAssignmentRequest;
+use App\Models\Assignment;
 use App\Repositories\AssignmentRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Response;
+use App\User;
 
 class AssignmentController extends AppBaseController
 {
@@ -29,7 +32,8 @@ class AssignmentController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $assignments = $this->assignmentRepository->all();
+        $id = Auth::user()->id;
+        $assignments = Assignment::with('user')->where('user_id', '=', $id)->latest()->paginate(5);
 
         return view('assignments.index')
             ->with('assignments', $assignments);
@@ -54,9 +58,16 @@ class AssignmentController extends AppBaseController
      */
     public function store(CreateAssignmentRequest $request)
     {
-        $input = $request->all();
 
-        $assignment = $this->assignmentRepository->create($input);
+/*        $input = $request->all();
+        $assignment = $this->assignmentRepository->create($input);*/
+        $assignment = new Assignment;
+        $assignment->user_id = Auth::user()->id;
+        $assignment->body = $request->input('body');
+        $assignment->date = $request->input('date');
+        $assignment->isDone = false;
+
+        $assignment->save();
 
         Flash::success('Assignment saved successfully.');
 

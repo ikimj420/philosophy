@@ -1,23 +1,23 @@
 <!-- User Id Field -->
-<div class="form-group col-sm-6">
+{{--<div class="full-width">
     {!! Form::label('user_id', 'User Id:') !!}
-    {!! Form::number('user_id', null, ['class' => 'form-control']) !!}
-</div>
+    {!! Form::number('user_id', null, ['class' => 'full-width']) !!}
+</div>--}}
 
 <!-- Body Field -->
-<div class="form-group col-sm-12 col-lg-12">
+<div class="full-width">
     {!! Form::label('body', 'Body:') !!}
-    {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
+    {!! Form::text('body', null, ['class' => 'full-width']) !!}
 </div>
 
 <!-- Date Field -->
-<div class="form-group col-sm-6">
+<div class="full-width">
     {!! Form::label('date', 'Date:') !!}
-    {!! Form::date('date', null, ['class' => 'form-control','id'=>'date']) !!}
+    {!! Form::date('date', null, ['class' => 'full-width','id'=>'date']) !!}
 </div>
 
 <!-- Isdone Field -->
-<div class="form-group col-sm-6">
+<div class="full-width">
     {!! Form::label('isDone', 'Isdone:') !!}
     <label class="checkbox-inline">
         {!! Form::hidden('isDone', 0) !!}
@@ -27,7 +27,7 @@
 
 
 <!-- Submit Field -->
-<div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('assignments.index') !!}" class="btn btn-default">Cancel</a>
+<div class="full-width">
+    {!! Form::submit('Save', ['class' => 'btn btn-primary full-width']) !!}
+    <a href="{!! route('assignments.index') !!}" class="btn btn-default full-width">Cancel</a>
 </div>

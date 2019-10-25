@@ -26,14 +26,18 @@
 
     <!-- favicons
     ================================================== -->
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('/storage/site/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('/storage/site/favicon.ico') }}" type="image/x-icon">
 
 </head>
 
 <body id="top">
 
     @yield('content')
+
+    @include('include.footer')
+
+    @include('include.preloader')
 
 <!-- Java Script
 ================================================== -->
