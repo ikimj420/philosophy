@@ -16,15 +16,6 @@
     {!! Form::date('date', null, ['class' => 'form-control','id'=>'date']) !!}
 </div>
 
-@section('scripts')
-    <script type="text/javascript">
-        $('#date').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: false
-        })
-    </script>
-@endsection
-
 <!-- Isdone Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('isDone', 'Isdone:') !!}

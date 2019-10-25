@@ -63,6 +63,7 @@
 
             <ul class="header__nav">
                 <li class="current"><a href="/" title="">Home</a></li>
+                <li class="current"><a href="/assignments" title="">To-Do</a></li>
                 <li class="has-children">
                     <a href="#0" title="">Categories</a>
                     <ul class="sub-menu">
