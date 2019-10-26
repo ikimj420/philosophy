@@ -1,23 +1,24 @@
-@extends('layouts.app')
-
+@extends('layouts.site')
 @section('content')
-    <section class="content-header">
-        <h1>
-            Category
-        </h1>
-   </section>
-   <div class="content">
-       @include('adminlte-templates::common.errors')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($category, ['route' => ['categories.update', $category->id], 'method' => 'patch']) !!}
+    <!-- styles
+        ================================================== -->
+    <section id="styles" class="s-styles">
+        <div class="row add-bottom">
+            @include('flash::message')
+            @include('adminlte-templates::common.errors')
+            <div class="row">
 
-                        @include('categories.fields')
+                <div class="col-full s-content__main">
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+                    <h3 class="add-bottom">Category</h3>
+
+                    {!! Form::model($category, ['route' => ['categories.update', $category->id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
+
+                    @include('categories.fields')
+
+                    {!! Form::close() !!}
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end row -->
+    </section> <!-- end styles -->
 @endsection

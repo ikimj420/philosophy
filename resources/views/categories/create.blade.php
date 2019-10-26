@@ -1,24 +1,23 @@
-@extends('layouts.app')
-
+@extends('layouts.site')
 @section('content')
-    <section class="content-header">
-        <h1>
-            Category
-        </h1>
-    </section>
-    <div class="content">
-        @include('adminlte-templates::common.errors')
-        <div class="box box-primary">
+    <!-- styles
+        ================================================== -->
+    <section id="styles" class="s-styles">
+        <div class="row add-bottom">
+            @include('flash::message')
+            @include('adminlte-templates::common.errors')
+            <div class="row">
+                <div class="col-full s-content__main">
 
-            <div class="box-body">
-                <div class="row">
-                    {!! Form::open(['route' => 'categories.store']) !!}
+                    <h3 class="add-bottom">Category</h3>
 
-                        @include('categories.fields')
+                    {!! Form::open(['route' => 'categories.store', 'enctype' => 'multipart/form-data']) !!}
+
+                    @include('categories.fields')
 
                     {!! Form::close() !!}
                 </div>
-            </div>
-        </div>
-    </div>
+            </div> <!-- end row -->
+        </div> <!-- end row -->
+    </section> <!-- end styles -->
 @endsection

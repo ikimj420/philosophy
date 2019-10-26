@@ -1,23 +1,27 @@
 <!-- Name Field -->
-<div class="form-group col-sm-6">
+<div class="full-width">
     {!! Form::label('name', 'Name:') !!}
-    {!! Form::text('name', null, ['class' => 'form-control']) !!}
+    {!! Form::text('name', null, ['class' => 'full-width']) !!}
 </div>
 
 <!-- Desc Field -->
-<div class="form-group col-sm-6">
+<div class="full-width">
     {!! Form::label('desc', 'Desc:') !!}
-    {!! Form::text('desc', null, ['class' => 'form-control']) !!}
+    {!! Form::text('desc', null, ['class' => 'full-width']) !!}
 </div>
 
 <!-- Pics Field -->
-<div class="form-group col-sm-6">
+<div class="full-width">
     {!! Form::label('pics', 'Pics:') !!}
-    {!! Form::text('pics', null, ['class' => 'form-control']) !!}
+    {!! Form::file('pics', null, ['class' => 'full-width']) !!}
+    @if(!empty($category))
+        {!! Form::hidden('pics', null, ['class' => 'full-width']) !!}
+        <img src="/storage/{!! $category->pics !!}" style="width: 10%" alt="{!! $category->name !!}">
+    @endif
 </div>
 
 <!-- Submit Field -->
-<div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('categories.index') !!}" class="btn btn-default">Cancel</a>
+<div class="full-width">
+    {!! Form::submit('Save', ['class' => 'btn btn-primary full-width']) !!}
+    <a href="{!! route('categories.index') !!}" class="btn btn-default full-width">Cancel</a>
 </div>

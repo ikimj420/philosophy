@@ -1,26 +1,62 @@
-@extends('layouts.app')
-
+@extends('layouts.site')
 @section('content')
-    <section class="content-header">
-        <h1 class="pull-left">Categories</h1>
-        <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('categories.create') !!}">Add New</a>
-        </h1>
-    </section>
-    <div class="content">
-        <div class="clearfix"></div>
-
+<!-- styles
+    ================================================== -->
+<section id="styles" class="s-styles">
+    <div class="row add-bottom">
         @include('flash::message')
+        @include('adminlte-templates::common.errors')
+        <div class="row">
 
-        <div class="clearfix"></div>
-        <div class="box box-primary">
-            <div class="box-body">
-                    @include('categories.table')
+            <div class="col-full s-content__main">
+                <h1 class="pull-right">
+                    <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('categories.create') !!}">Add New</a>
+                </h1>
+            </div>
+
+        </div> <!-- end row -->
+
+        <div class="col-twelve">
+
+            <div class="table-responsive">
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($categories as $category)
+                        <tr>
+                            <td><a href="{!! route('categories.edit', [$category->id]) !!}">{!! $category->name !!}</a></td>
+                            <td>{!! $category->desc !!}</td>
+                            <td>
+                                {!! Form::open(['route' => ['categories.destroy', $category->id], 'method' => 'delete']) !!}
+                                <div class='btn-group'>
+                                    {!! Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                </div>
+                                {!! Form::close() !!}
+                            </td>
+                        </tr>
+                    @empty
+                        <p>No</p>
+                    @endforelse
+                    </tbody>
+                </table>
+
+                <div class="col-full">
+                    <nav class="pgn">
+                        <ul>
+                            {!! $categories->links() !!}
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
-        <div class="text-center">
-        
-        </div>
-    </div>
+    </div> <!-- end row -->
+</section> <!-- end styles -->
 @endsection
 

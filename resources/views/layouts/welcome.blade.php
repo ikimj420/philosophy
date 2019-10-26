@@ -19,18 +19,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/vendor.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
 
-    <style type="text/css" media="screen">
-        .s-styles {
-            background: #f2f2f2;
-            padding-top: 12rem;
-            padding-bottom: 12rem;
-        }
-
-        .s-styles .section-intro h1 {
-            margin-top: 0;
-        }
-    </style>
-
     <!-- script
     ================================================== -->
     <script src="{{ asset('js/modernizr.js') }}"></script>
@@ -44,14 +32,14 @@
 </head>
 
 <body id="top">
-@include('include.pageheadermenu')
+
+@include('include.pageheader')
 
 @yield('content')
 
 @include('include.footer')
 
 @include('include.preloader')
-
 
 <!-- Java Script
 ================================================== -->

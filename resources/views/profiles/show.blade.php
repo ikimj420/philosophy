@@ -1,24 +1,5 @@
 @extends('layouts.site')
 @section('content')
-    <style type="text/css" media="screen">
-        .s-styles {
-            background: #f2f2f2;
-            padding-top: 12rem;
-            padding-bottom: 12rem;
-        }
-
-        .s-styles .section-intro h1 {
-            margin-top: 0;
-        }
-    </style>
-    <!-- pageheader
-    ================================================== -->
-    <section class="s-pageheader s-pageheader--home">
-
-        @include('include.menu')
-
-    </section> <!-- end s-pageheader -->
-
     <!-- styles
         ================================================== -->
     <section id="styles" class="s-styles">

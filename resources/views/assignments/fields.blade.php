@@ -1,9 +1,3 @@
-<!-- User Id Field -->
-{{--<div class="full-width">
-    {!! Form::label('user_id', 'User Id:') !!}
-    {!! Form::number('user_id', null, ['class' => 'full-width']) !!}
-</div>--}}
-
 <!-- Body Field -->
 <div class="full-width">
     {!! Form::label('body', 'Body:') !!}

@@ -1,11 +1,5 @@
 @extends('layouts.site')
 @section('content')
-    <!-- pageheader
-================================================== -->
-    <section class="s-pageheader s-pageheader--home">
-        @include('include.menu')
-    </section> <!-- end s-pageheader -->
-
     <!-- s-content
     ================================================== -->
     <section class="s-content s-content--narrow">

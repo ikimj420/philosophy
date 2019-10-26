@@ -3,7 +3,7 @@
 
         <div class="header__logo">
             <a class="logo" href="/">
-                <img src="images/logo.svg" alt="Homepage">
+                <img src="/storage/site/logo.svg" alt="Homepage">
             </a>
         </div> <!-- end header__logo -->
 
@@ -63,7 +63,11 @@
 
             <ul class="header__nav">
                 <li class="current"><a href="/" title="">Home</a></li>
-                <li class="current"><a href="/assignments" title="">To-Do</a></li>
+                @auth()
+                    <li><a href="/profiles/{!! Auth::user()->id !!}" title="">Profile</a></li>
+                    <li><a href="/categories" title="">Categories</a></li>
+                @endauth
+                <li><a href="/assignments" title="">To-Do</a></li>
                 <li class="has-children">
                     <a href="#0" title="">Blog</a>
                     <ul class="sub-menu">
@@ -75,13 +79,10 @@
                 <li class="has-children">
                     <a href="#0" title="">Make</a>
                     <ul class="sub-menu">
-                        <li><a href="#">Video Post</a></li>
-                        <li><a href="#">Audio Post</a></li>
+                        <li><a href="#">Food</a></li>
+                        <li><a href="#">Cocktail</a></li>
                     </ul>
                 </li>
-                @auth()
-                    <li><a href="/profiles/{!! Auth::user()->id !!}" title="">Profile</a></li>
-                @endauth
                 <li><a href="#" title="">Contact</a></li>
             </ul> <!-- end header__nav -->
 

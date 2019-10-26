@@ -30,11 +30,7 @@ class Category extends Model
 
 
 
-    public $fillable = [
-        'name',
-        'desc',
-        'pics'
-    ];
+    public $guarded = [];
 
     /**
      * The attributes that should be casted to native types.

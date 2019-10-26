@@ -65,7 +65,7 @@ class AssignmentController extends AppBaseController
         $assignment->user_id = Auth::user()->id;
         $assignment->body = $request->input('body');
         $assignment->date = $request->input('date');
-        $assignment->isDone = false;
+        $assignment->isDone = $request->input('isDone');
 
         $assignment->save();
 
