@@ -10,7 +10,7 @@
 
             <div class="col-full s-content__main">
                 <h1 class="pull-right">
-                    <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('categories.create') !!}">Add New</a>
+                    <a class="btn full-width pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('categories.create') !!}">Add New Category</a>
                 </h1>
             </div>
 
@@ -25,7 +25,6 @@
                     <tr>
                         <th>Category</th>
                         <th>Description</th>
-                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,13 +32,6 @@
                         <tr>
                             <td><a href="{!! route('categories.edit', [$category->id]) !!}">{!! $category->name !!}</a></td>
                             <td>{!! $category->desc !!}</td>
-                            <td>
-                                {!! Form::open(['route' => ['categories.destroy', $category->id], 'method' => 'delete']) !!}
-                                <div class='btn-group'>
-                                    {!! Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
-                                </div>
-                                {!! Form::close() !!}
-                            </td>
                         </tr>
                     @empty
                         <p>No</p>

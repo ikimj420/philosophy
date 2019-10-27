@@ -22,6 +22,6 @@
 
 <!-- Submit Field -->
 <div class="full-width">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary full-width']) !!}
-    <a href="{!! route('assignments.index') !!}" class="btn btn-default full-width">Cancel</a>
+    {!! Form::submit('Save', ['class' => 'btn full-width']) !!}
+    <a href="{!! route('assignments.index') !!}" class="btn btn--stroke full-width">Cancel</a>
 </div>

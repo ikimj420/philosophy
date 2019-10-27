@@ -9,7 +9,11 @@
             <div class="row">
 
                 <div class="col-full s-content__main">
-
+                    {!! Form::open(['route' => ['categories.destroy', $category->id], 'method' => 'delete']) !!}
+                    <div class='btn-group'>
+                        {!! Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn--primary full-width', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    </div>
+                    {!! Form::close() !!}
                     <h3 class="add-bottom">Category</h3>
 
                     {!! Form::model($category, ['route' => ['categories.update', $category->id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}

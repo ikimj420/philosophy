@@ -1,26 +1,58 @@
-@extends('layouts.app')
-
+@extends('layouts.site')
 @section('content')
-    <section class="content-header">
-        <h1 class="pull-left">Blogs</h1>
-        <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('blogs.create') !!}">Add New</a>
-        </h1>
-    </section>
-    <div class="content">
-        <div class="clearfix"></div>
+    <!-- styles
+        ================================================== -->
+    <section id="styles" class="s-styles">
+        <div class="row add-bottom">
+            @include('flash::message')
+            @include('adminlte-templates::common.errors')
+            <div class="row">
 
-        @include('flash::message')
+                <div class="col-full s-content__main">
+                    <h1 class="pull-right">
+                        <a class="btn full-width pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('blogs.create') !!}">Add New Blog</a>
+                    </h1>
+                </div>
 
-        <div class="clearfix"></div>
-        <div class="box box-primary">
-            <div class="box-body">
-                    @include('blogs.table')
+            </div> <!-- end row -->
+
+            <div class="col-twelve">
+
+                <div class="table-responsive">
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Title</th>
+                            <th>Body</th>
+                            <th>Video</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($blogs as $blog)
+                            <tr>
+                                <td>{!! $blog->category->name !!}</td>
+                                <td><a href="{!! route('blogs.edit', [$blog->id]) !!}">{!! $blog->title !!}</a></td>
+                                <td>{!! Str::limit($blog->body, 20) !!}</td>
+                                <td>{!! $blog->video !!}</td>
+                            </tr>
+                        @empty
+                            <p>Noting To Show</p>
+                        @endforelse
+                        </tbody>
+                    </table>
+
+                    <div class="col-full">
+                        <nav class="pgn">
+                            <ul>
+                                {!! $blogs->links() !!}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="text-center">
-        
-        </div>
-    </div>
+        </div> <!-- end row -->
+    </section> <!-- end styles -->
 @endsection
 

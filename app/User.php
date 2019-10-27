@@ -40,6 +40,10 @@ class User extends Authenticatable
      **/
     public function assignments()
     {
-        return $this->hasMany(\App\Models\Assignments::class, 'user_id');
+        return $this->hasMany(\App\Models\Assignments::class);
+    }
+    public function blogs()
+    {
+        return $this->hasMany(\App\Models\Blogs::class);
     }
 }

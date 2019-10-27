@@ -10,7 +10,7 @@
 
             <div class="col-full s-content__main">
 
-                <h3 class="add-bottom">To-Do</h3>
+                <h3 class="add-bottom">Add To-Do</h3>
 
                 {!! Form::open(['route' => 'assignments.store']) !!}
 
@@ -44,7 +44,7 @@
                         <td>
                             {!! Form::open(['route' => ['assignments.destroy', $assignment->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>
-                                {!! Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                {!! Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn--primary full-width', 'onclick' => "return confirm('Are you sure?')"]) !!}
                             </div>
                             {!! Form::close() !!}
                         </td>

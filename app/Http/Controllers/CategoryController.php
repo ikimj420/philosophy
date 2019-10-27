@@ -32,7 +32,7 @@ class CategoryController extends AppBaseController
      */
     public function index(Category $category, Request $request)
     {
-        $categories = Category::paginate(5);
+        $categories = Category::latest()->paginate(10);
 
         return view('categories.index', compact('categories'));
     }
@@ -170,7 +170,7 @@ class CategoryController extends AppBaseController
         if (request()->has('pics')) {
             $category->update([ 'pics' => request()->pics->store('category', 'public')]);
 
-            $image = Image::make(public_path('storage/'.$category->pics))->fit(240, 240);
+            $image = Image::make(public_path('storage/'.$category->pics))->fit(500, 500);
             $image->save();
         }
     }

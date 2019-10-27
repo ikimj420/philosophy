@@ -33,14 +33,7 @@ class Blog extends Model
 
 
 
-    public $fillable = [
-        'user_id',
-        'category_id',
-        'title',
-        'body',
-        'video',
-        'pics'
-    ];
+    public $guarded = [];
 
     /**
      * The attributes that should be casted to native types.
@@ -63,10 +56,9 @@ class Blog extends Model
      * @var array
      */
     public static $rules = [
-        'user_id' => 'required',
         'category_id' => 'required',
         'title' => 'required',
-        'body' => 'required'
+        'body' => 'required',
     ];
 
     /**
@@ -82,6 +74,6 @@ class Blog extends Model
      **/
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id');
+        return $this->belongsTo(\App\User::class, 'user_id');
     }
 }

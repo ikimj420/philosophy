@@ -62,28 +62,30 @@
             <h2 class="header__nav-heading h6">Site Navigation</h2>
 
             <ul class="header__nav">
-                <li class="current"><a href="/" title="">Home</a></li>
+                <li><a href="/" title="">Home</a></li>
                 @auth()
                     <li><a href="/profiles/{!! Auth::user()->id !!}" title="">Profile</a></li>
                     <li><a href="/categories" title="">Categories</a></li>
                 @endauth
                 <li><a href="/assignments" title="">To-Do</a></li>
                 <li class="has-children">
-                    <a href="#0" title="">Blog</a>
+                    <a href="/" title="">Blog</a>
                     <ul class="sub-menu">
-                        <li><a href="#">Video Post</a></li>
-                        <li><a href="#">Audio Post</a></li>
-                        <li><a href="#">Standard Post</a></li>
+                        <li><a href="/blogs">All Blogs</a></li>
+                        <li><a href="/blogs/blog/4">Code</a></li>
+                        <li><a href="/blogs/blog/3">Audio Post</a></li>
+                        <li><a href="/blogs/blog/2">Video Post</a></li>
+                        <li><a href="/blogs/blog/1">Standard Post</a></li>
                     </ul>
                 </li>
                 <li class="has-children">
-                    <a href="#0" title="">Make</a>
+                    <a href="/" title="">Make</a>
                     <ul class="sub-menu">
-                        <li><a href="#">Food</a></li>
-                        <li><a href="#">Cocktail</a></li>
+                        <li><a href="/exercises">Food</a></li>
+                        <li><a href="/exercises">Cocktail</a></li>
                     </ul>
                 </li>
-                <li><a href="#" title="">Contact</a></li>
+                <li><a href="/" title="">Contact</a></li>
             </ul> <!-- end header__nav -->
 
             <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
