@@ -50,7 +50,7 @@
                         </td>
                     </tr>
                     @empty
-                        <p>No</p>
+                        <p>Noting To Show</p>
                     @endforelse
                     </tbody>
                 </table>

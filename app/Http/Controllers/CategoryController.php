@@ -10,7 +10,6 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
-use Image;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends AppBaseController
@@ -30,9 +29,9 @@ class CategoryController extends AppBaseController
      *
      * @return Response
      */
-    public function index(Category $category, Request $request)
+    public function index()
     {
-        $categories = Category::latest()->paginate(10);
+        $categories = Category::latest()->get();
 
         return view('categories.index', compact('categories'));
     }
@@ -54,13 +53,18 @@ class CategoryController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateCategoryRequest $request, Category $category)
+    public function store(Request $request, Category $category)
     {
-/*        $input = $request->all();
-        $category = $this->categoryRepository->create($input);*/
         $category = Category::create($this->validateRequest());
 
-        $this->storeImage($category);
+        $img_request = $request->hasFile('pics');
+        $img = $request->file('pics');
+        $folder = 'category';
+        $filenameToStore = $this->createImage($img_request, $img, $folder);
+        $category->pics = $filenameToStore;
+
+        $category->save();
+
         Flash::success('Category saved successfully.');
 
         return redirect(route('categories.index'));
@@ -114,16 +118,28 @@ class CategoryController extends AppBaseController
      *
      * @return Response
      */
-    public function update( UpdateCategoryRequest $request, Category $category)
+    public function update(Request $request, Category $category)
     {
-        //$category = $this->categoryRepository->find($id);
+
         if (empty($category)) {
             Flash::error('Category not found');
             return redirect(route('categories.index'));
         }
-        //$category = $this->categoryRepository->update($request->all(), $id);
+
+        $folder = 'category';
+        $img_request = $request->hasFile('pics');
+
+        if(Request()->hasFile('pics')){
+            $img = Request()->file('pics');
+            if($category->pics != 'default.png'){
+                // Delete Image
+                Storage::delete('public/'. $folder .'/'.$category->pics);
+            }
+            $filenameToStore = $this->updateImage($img_request, $img, $folder);
+            $category->pics = $filenameToStore;
+        }
+
         $category->update($this->validateRequest());
-        $this->storeImage($category);
 
         Flash::success('Category updated successfully.');
         return redirect(route('categories.index'));
@@ -140,17 +156,17 @@ class CategoryController extends AppBaseController
      */
     public function destroy(Category $category)
     {
-        //$category = $this->categoryRepository->find($id);
-//dd( asset('storage/'.$category->pics));
         if (empty($category)) {
             Flash::error('Category not found');
 
             return redirect(route('categories.index'));
         }
-        Storage::delete(asset('storage/'.$category->pics));
-
         $category->delete();
-        //$this->categoryRepository->delete($id);
+        if($category->pics != 'default.png'){
+            // Delete Image
+            Storage::delete('public/category/'.$category->pics);
+        }
+
         Flash::success('Category deleted successfully.');
 
         return redirect(route('categories.index'));
@@ -159,19 +175,11 @@ class CategoryController extends AppBaseController
     private function validateRequest()
     {
         return request()->validate([
-            'name' => 'required|min:3',
+            'title' => 'required|min:4',
             'desc' => 'sometimes',
-            'pics' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:5000'
+
+            //no pics $category->pics = $filenameToStore;
+            'filenameToStore' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    }
-
-    private function storeImage(Category $category)
-    {
-        if (request()->has('pics')) {
-            $category->update([ 'pics' => request()->pics->store('category', 'public')]);
-
-            $image = Image::make(public_path('storage/'.$category->pics))->fit(500, 500);
-            $image->save();
-        }
     }
 }

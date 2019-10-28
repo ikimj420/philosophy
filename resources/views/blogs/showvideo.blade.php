@@ -22,9 +22,21 @@
 
             <div class="s-content__media col-full">
                 <div class="video-container">
-                    <iframe src="{!! $blog->video !!}?color=01aef0&title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    <iframe src="{!! $blog->video !!}" width="" height="" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 </div>
             </div> <!-- end s-content__media -->
+
+
+
+            <div class="s-content__media col-full">
+                <div class="video-container">
+                    <iframe width="640" height="360"
+                            src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                    </iframe>
+                </div>
+            </div> <!-- end s-content__media -->
+
+
 
             <div class="col-full s-content__main">
 

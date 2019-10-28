@@ -8,11 +8,12 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Repositories\BlogRepository;
 use App\Http\Controllers\AppBaseController;
+use App\User;
 use Illuminate\Http\Request;
 use Flash;
-use Intervention\Image\Facades\Image;
 use Response;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends AppBaseController
 {
@@ -31,9 +32,9 @@ class BlogController extends AppBaseController
      *
      * @return Response
      */
-    public function index(Blog $blogs)
+    public function index()
     {
-        $blogs = Blog::latest()->paginate(10);
+        $blogs = Blog::with('category')->latest()->paginate(15);
 
         return view('blogs.index', compact('blogs'));
     }
@@ -47,7 +48,7 @@ class BlogController extends AppBaseController
     {
         $categories = Category::get();
 
-        return view('blogs.create', compact('categories'));
+        return view('blogs.create', compact('categories', 'blogs'));
     }
 
     /**
@@ -57,12 +58,19 @@ class BlogController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateBlogRequest $request, Blog $blog)
+    public function store(Request $request, User $user, Blog $blog)
     {
         $blog = Blog::create($this->validateRequest());
 
         $this->User($blog);
-        $this->storeImage($blog);
+
+        $img_request = $request->hasFile('pics');
+        $img = $request->file('pics');
+        $folder = 'blog';
+        $filenameToStore = $this->createImage($img_request, $img, $folder);
+        $blog->pics = $filenameToStore;
+
+        $blog->save();
 
         Flash::success('Blog saved successfully.');
 
@@ -76,7 +84,7 @@ class BlogController extends AppBaseController
      *
      * @return Response
      */
-/*    public function show(Blog $blog)
+    public function show(Blog $blog)
     {
 
         if (empty($blog)) {
@@ -85,107 +93,7 @@ class BlogController extends AppBaseController
             return redirect(route('blogs.index'));
         }
 
-        return view('blogs.show')->with('blog', $blog);
-    }*/
-
-    public function code(Blog $blogs)
-    {
-        $blogs = Blog::with('category')->where('category_id', '=', 4)->latest()->paginate(10);
-
-        if (empty($blogs)) {
-            Flash::error('Blog not found');
-
-            return redirect(route('blogs.index'));
-        }
-
-        return view('blogs.code')->with('blogs', $blogs);
-    }
-
-    public function showcode(Blog $blog)
-    {
-
-        if (empty($blog)) {
-            Flash::error('Blog not found');
-
-            return redirect(route('blogs.index'));
-        }
-
-        return view('blogs.blog.showcode')->with('blog', $blog);
-    }
-
-    public function audio(Blog $blogs)
-    {
-        $blogs = Blog::with('category')->where('category_id', '=', 3)->latest()->paginate(10);
-
-        if (empty($blogs)) {
-            Flash::error('Blog not found');
-
-            return redirect(route('blogs.index'));
-        }
-
-        return view('blogs.audio')->with('blogs', $blogs);
-    }
-
-    public function showaudio(Blog $blog)
-    {
-
-        if (empty($blog)) {
-            Flash::error('Blog not found');
-
-            return redirect(route('blogs.index'));
-        }
-
-        return view('blogs.blog.showaudio')->with('blog', $blog);
-    }
-
-    public function video(Blog $blogs)
-    {
-        $blogs = Blog::with('category')->where('category_id', '=', 2)->latest()->paginate(10);
-
-        if (empty($blogs)) {
-            Flash::error('Blog not found');
-
-            return redirect(route('blogs.index'));
-        }
-
-        return view('blogs.video')->with('blogs', $blogs);
-    }
-
-    public function showvideo(Blog $blog)
-    {
-
-        if (empty($blog)) {
-            Flash::error('Blog not found');
-
-            return redirect(route('blogs.index'));
-        }
-
-        return view('blogs.blog.showvideo')->with('blog', $blog);
-    }
-
-    public function standard(Blog $blogs)
-    {
-        $blogs = Blog::with('category')->where('category_id', '=', 1)->latest()->paginate(10);
-
-        if (empty($blogs)) {
-            Flash::error('Blog not found');
-
-            return redirect(route('blogs.index'));
-        }
-
-        return view('blogs.standard')->with('blogs', $blogs);
-    }
-
-    public function showstandard(Blog $blog)
-    {
-
-        if (empty($blog)) {
-            Flash::error('Blog not found');
-
-            return redirect(route('blogs.index'));
-        }
-
-        return view('blogs.blog.showstandard')->with('blog', $blog);
+        return view('blogs.show', compact('blog'));
     }
 
     /**
@@ -195,11 +103,9 @@ class BlogController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit(Blog $blog)
     {
-        $blog = $this->blogRepository->find($id);
         $categories = Category::get();
-
 
         if (empty($blog)) {
             Flash::error('Blog not found');
@@ -207,7 +113,7 @@ class BlogController extends AppBaseController
             return redirect(route('blogs.index'));
         }
 
-        return view('blogs.edit', compact('blog','categories'));
+        return view('blogs.edit', compact('blog', 'categories'));
     }
 
     /**
@@ -218,8 +124,9 @@ class BlogController extends AppBaseController
      *
      * @return Response
      */
-    public function update(Blog $blog)
+    public function update(Request $request, Blog $blog, User $user)
     {
+        $categories = Category::get();
 
         if (empty($blog)) {
             Flash::error('Blog not found');
@@ -227,14 +134,26 @@ class BlogController extends AppBaseController
             return redirect(route('blogs.index'));
         }
 
-        $blog->update($this->validateRequest());
-
         $this->User($blog);
-        $this->storeImage($blog);
+
+        $folder = 'blog';
+        $img_request = $request->hasFile('pics');
+
+        if(Request()->hasFile('pics')){
+            $img = Request()->file('pics');
+            if($blog->pics != 'default.png'){
+                // Delete Image
+                Storage::delete('public/'. $folder .'/'.$blog->pics);
+            }
+            $filenameToStore = $this->updateImage($img_request, $img, $folder);
+            $blog->pics = $filenameToStore;
+        }
+
+        $blog->update($this->validateRequest());
 
         Flash::success('Blog updated successfully.');
 
-        return redirect(route('blogs.index'));
+        return redirect(route('blogs.index', compact('categories')));
     }
 
     /**
@@ -246,17 +165,19 @@ class BlogController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Blog $blog)
     {
-        $blog = $this->blogRepository->find($id);
-
         if (empty($blog)) {
             Flash::error('Blog not found');
 
             return redirect(route('blogs.index'));
         }
 
-        $this->blogRepository->delete($id);
+        $blog->delete();
+        if($blog->pics != 'default.png'){
+            // Delete Image
+            Storage::delete('public/blog/'.$blog->pics);
+        }
 
         Flash::success('Blog deleted successfully.');
 
@@ -266,27 +187,21 @@ class BlogController extends AppBaseController
     private function validateRequest()
     {
         return request()->validate([
-            'category_id' => 'required',
-            'title' => 'required|min:5',
+            'title' => 'required|min:4',
             'body' => 'required',
 
+            'user_id' => 'sometimes',
+            'category_id' => 'sometimes',
+            'code' => 'sometimes',
+            'audio' => 'sometimes',
             'video' => 'sometimes',
-            'pics' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:5000'
+            //no pics $category->pics = $filenameToStore;
+            'filenameToStore' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     }
 
-    private function User($blog)
+    private function User(Blog $blog)
     {
         $blog->update([ 'user_id' => Auth::user()->id]);
-    }
-
-    private function storeImage(Blog $blog)
-    {
-        if (request()->has('pics')) {
-            $blog->update([ 'pics' => request()->pics->store('blog', 'public')]);
-
-            $image = Image::make(public_path('storage/'.$blog->pics))->fit(1000, 1000);
-            $image->save();
-        }
     }
 }

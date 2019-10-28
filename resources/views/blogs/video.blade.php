@@ -23,7 +23,7 @@
                     <article class="masonry__brick entry format-video" data-aos="fade-up">
 
                         <div class="entry__thumb video-image">
-                            <a href="{!! $blog->video !!}?color=01aef0&title=0&byline=0&portrait=0" data-lity>
+                            <a href="{!! $blog->video !!}" data-lity>
                                 <img src="{{ asset('/storage/'. $blog->pics) }}"
                                      srcset="{{ asset('/storage/'. $blog->pics) }} 1x, {{ asset('/storage/'. $blog->pics) }} 1x" alt="">
                             </a>
@@ -35,7 +35,7 @@
                                 <div class="entry__date">
                                     {!! date_format($blog->created_at, 'M d, Y') !!}
                                 </div>
-                                <h1 class="entry__title"><a href="{!! '/blogs/blog/showcode/'.$blog->id !!}">{!! $blog->title !!}</a></h1>
+                                <h1 class="entry__title"><a href="{!! '/blogs/blog/showvideo/'.$blog->id !!}">{!! $blog->title !!}</a></h1>
 
                             </div>
                             <div class="entry__excerpt">

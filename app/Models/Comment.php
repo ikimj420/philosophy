@@ -28,11 +28,7 @@ class Comment extends Model
 
 
 
-    public $fillable = [
-        'body',
-        'commentable_id',
-        'commentable_type'
-    ];
+    public $guarded = [];
 
     /**
      * The attributes that should be casted to native types.

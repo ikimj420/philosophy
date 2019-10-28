@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Blog
  * @package App\Models
- * @version October 23, 2019, 11:13 am UTC
+ * @version October 28, 2019, 10:50 am UTC
  *
  * @property \App\Models\Category category
  * @property \App\Models\User user
@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer category_id
  * @property string title
  * @property string body
+ * @property string code
+ * @property string audio
  * @property string video
  * @property string pics
  */
@@ -46,6 +48,8 @@ class Blog extends Model
         'category_id' => 'integer',
         'title' => 'string',
         'body' => 'string',
+        'code' => 'string',
+        'audio' => 'string',
         'video' => 'string',
         'pics' => 'string'
     ];
@@ -56,9 +60,8 @@ class Blog extends Model
      * @var array
      */
     public static $rules = [
-        'category_id' => 'required',
         'title' => 'required',
-        'body' => 'required',
+        'body' => 'required'
     ];
 
     /**

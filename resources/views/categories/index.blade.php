@@ -34,18 +34,10 @@
                             <td>{!! $category->desc !!}</td>
                         </tr>
                     @empty
-                        <p>No</p>
+                        <p>Noting To Show</p>
                     @endforelse
                     </tbody>
                 </table>
-
-                <div class="col-full">
-                    <nav class="pgn">
-                        <ul>
-                            {!! $categories->links() !!}
-                        </ul>
-                    </nav>
-                </div>
             </div>
         </div>
     </div> <!-- end row -->

@@ -16,10 +16,12 @@ class CreateBlogsTable extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('title');
             $table->text('body');
+            $table->text('code')->nullable();
+            $table->string('audio')->nullable();
             $table->string('video')->nullable();
             $table->string('pics')->nullable();
             $table->timestamps();

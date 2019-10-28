@@ -23,7 +23,7 @@
                     <article class="masonry__brick entry format-standard" data-aos="fade-up">
 
                         <div class="entry__thumb">
-                            <a href="{!! '/blogs/blog/showcode/'.$blog->id !!}" class="entry__thumb-link">
+                            <a href="{!! '/blogs/blog/showstandard/'.$blog->id !!}" class="entry__thumb-link">
                                 <img src="{{ asset('/storage/'. $blog->pics) }}"
                                      srcset="{{ asset('/storage/'. $blog->pics) }} 1x, {{ asset('/storage/'. $blog->pics) }} 1x" alt="">
                             </a>
@@ -35,7 +35,7 @@
                                 <div class="entry__date">
                                     {!! date_format($blog->created_at, 'M d, Y') !!}
                                 </div>
-                                <h1 class="entry__title"><a href="{!! '/blogs/blog/showcode/'.$blog->id !!}">{!! $blog->title !!}</a></h1>
+                                <h1 class="entry__title"><a href="{!! '/blogs/blog/showstandard/'.$blog->id !!}">{!! $blog->title !!}</a></h1>
 
                             </div>
                             <div class="entry__excerpt">

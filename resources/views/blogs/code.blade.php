@@ -19,7 +19,7 @@
             <div class="masonry">
 
                 <div class="grid-sizer"></div>
-                @forelse($blogs as $blog)
+                @forelse($code as $blog)
                 <article class="masonry__brick entry format-standard" data-aos="fade-up">
 
                     <div class="entry__thumb">
@@ -60,7 +60,7 @@
         <div class="row">
             <div class="col-full">
                 <nav class="pgn">
-                    {!! $blogs->links() !!}
+                    {!! $code->links() !!}
                 </nav>
             </div>
         </div>

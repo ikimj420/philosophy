@@ -35,16 +35,7 @@ class Exercise extends Model
 
 
 
-    public $fillable = [
-        'user_id',
-        'category_id',
-        'title',
-        'ingredients',
-        'make',
-        'fromMin',
-        'video',
-        'pics'
-    ];
+    public $guarded = [];
 
     /**
      * The attributes that should be casted to native types.
@@ -69,8 +60,6 @@ class Exercise extends Model
      * @var array
      */
     public static $rules = [
-        'user_id' => 'required',
-        'category_id' => 'required',
         'title' => 'required',
         'ingredients' => 'required',
         'make' => 'required'
@@ -89,6 +78,6 @@ class Exercise extends Model
      **/
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id');
+        return $this->belongsTo(\App\User::class, 'user_id');
     }
 }

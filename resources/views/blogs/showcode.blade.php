@@ -28,7 +28,10 @@
             </div> <!-- end s-content__media -->
 
             <div class="col-full s-content__main">
-                <pre><code> {{ $blog->body }} </code></pre>
+                <pre><code>
+                        {{ $blog->body }}
+                </code></pre>
+
                 <p class="s-content__tags">
                     <span>Post Tags</span>
 

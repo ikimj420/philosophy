@@ -16,7 +16,7 @@
     {!! Form::file('pics', null, ['class' => 'full-width']) !!}
     @if(!empty($category))
         {!! Form::hidden('pics', null, ['class' => 'full-width']) !!}
-        <img src="/storage/{!! $category->pics !!}" style="width: 10%" alt="{!! $category->name !!}">
+        <img src="/storage/category/{!! $category->pics !!}" style="width: 10%" alt="{!! $category->name !!}">
     @endif
 </div>
 

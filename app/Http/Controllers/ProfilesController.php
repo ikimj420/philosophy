@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Image;
 
-class ProfilesController extends Controller
+class ProfilesController extends AppBaseController
 {
     /**
      * Display the specified resource.
@@ -40,36 +39,25 @@ class ProfilesController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if($request->hasFile('pics')){
-            // Filename with extension
-            $filenameWithExt = $request->file('pics')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just extension
-            $extension = $request->file('pics')->getClientOriginalExtension();
-            // Filename to store
-            $filenameToStor = $filename.'_'.time().'.'.$extension;
-            //remove space if exist
-            $filenameToStore = str_replace(' ','_', $filenameToStor);
-            // Path to save file in albums folder
-            $path = $request->file('pics')->storeAs('public/user', $filenameToStore);
-        }
-        if ($request->hasFile('pics')) {
-            if ($user->pics != 'default.png') {
-                // If Update Image Delete Old Image
-                Storage::delete('public/user/' . $user->pics);
-            };
-            $user->pics = $filenameToStore;
-        }
-
-        $user->update($this->validateData());
-
         if (empty($user)) {
             Flash::error('User not found');
 
             return redirect(route('home'));
         }
+        $folder = 'user';
+        $img_request = $request->hasFile('pics');
 
+        if(Request()->hasFile('pics')){
+            $img = Request()->file('pics');
+            if($user->pics != 'default.png'){
+                // Delete Image
+                Storage::delete('public/'. $folder .'/'.$user->pics);
+            }
+            $filenameToStore = $this->updateImage($img_request, $img, $folder);
+            $user->pics = $filenameToStore;
+        }
+
+        $user->update($this->validateRequest());
         return redirect('/profiles/'.$user->id);
     }
     /**
@@ -83,16 +71,16 @@ class ProfilesController extends Controller
         //
     }
 
-    protected function validateData()
+    protected function validateRequest()
     {
         return request()->validate([
             'fullName' => 'required',
             'username' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
 
             'bio' => 'sometimes',
             //no pics $user->pics = $filenameToStore;
-            'filenameToStore' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'filenameToStore' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     }
 }

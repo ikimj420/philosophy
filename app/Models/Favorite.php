@@ -27,10 +27,7 @@ class Favorite extends Model
 
 
 
-    public $fillable = [
-        'favoriteable_type',
-        'favoriteable_id'
-    ];
+    public $guarded = [];
 
     /**
      * The attributes that should be casted to native types.

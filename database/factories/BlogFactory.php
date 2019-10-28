@@ -12,6 +12,8 @@ $factory->define(Blog::class, function (Faker $faker) {
         'category_id' => $faker->word,
         'title' => $faker->word,
         'body' => $faker->text,
+        'code' => $faker->text,
+        'audio' => $faker->word,
         'video' => $faker->word,
         'pics' => $faker->word,
         'created_at' => $faker->date('Y-m-d H:i:s'),

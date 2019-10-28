@@ -8,7 +8,7 @@ use App\Repositories\BaseRepository;
 /**
  * Class BlogRepository
  * @package App\Repositories
- * @version October 23, 2019, 11:13 am UTC
+ * @version October 28, 2019, 10:50 am UTC
 */
 
 class BlogRepository extends BaseRepository
@@ -21,6 +21,8 @@ class BlogRepository extends BaseRepository
         'category_id',
         'title',
         'body',
+        'code',
+        'audio',
         'video',
         'pics'
     ];

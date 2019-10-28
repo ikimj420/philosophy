@@ -28,11 +28,7 @@ class Tag extends Model
 
 
 
-    public $fillable = [
-        'tag_id',
-        'taggable_id',
-        'taggable_type'
-    ];
+    public $guarded = [];
 
     /**
      * The attributes that should be casted to native types.

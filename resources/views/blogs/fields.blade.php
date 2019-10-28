@@ -26,6 +26,18 @@
     {!! Form::textarea('body', null, ['class' => 'full-width']) !!}
 </div>
 
+<!-- Code Field -->
+<div class="full-width">
+    {!! Form::label('code', 'Code:') !!}
+    {!! Form::textarea('code', null, ['class' => 'full-width']) !!}
+</div>
+
+<!-- Audio Field -->
+<div class="full-width">
+    {!! Form::label('audio', 'Audio:') !!}
+    {!! Form::text('audio', null, ['class' => 'full-width']) !!}
+</div>
+
 <!-- Video Field -->
 <div class="full-width">
     {!! Form::label('video', 'Video:') !!}
@@ -38,7 +50,7 @@
     {!! Form::file('pics', null, ['class' => 'full-width']) !!}
     @if(!empty($blog))
         {!! Form::hidden('pics', null, ['class' => 'full-width']) !!}
-        <img src="/storage/{!! $blog->pics !!}" style="width: 10%" alt="{!! $blog->name !!}">
+        <img src="/storage/blog/{!! $blog->pics !!}" style="width: 10%" alt="{!! $blog->title !!}">
     @endif
 </div>
 

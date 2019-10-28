@@ -23,13 +23,14 @@ Route::resource('assignments', 'AssignmentController');
 Route::resource('blogs', 'BlogController');
 
 Route::get('/blogs/blog/4', 'BlogController@code')->name('blogs.code');
-Route::get('/blogs/blog/showcode/{blog}', 'BlogController@showcode')->name('blogs.showcode');
 Route::get('/blogs/blog/3', 'BlogController@audio')->name('blogs.audio');
-Route::get('/blogs/blog/showcode/{blog}', 'BlogController@showaudio')->name('blogs.showaudio');
 Route::get('/blogs/blog/2', 'BlogController@video')->name('blogs.video');
-Route::get('/blogs/blog/showcode/{blog}', 'BlogController@showvideo')->name('blogs.showvideo');
 Route::get('/blogs/blog/1', 'BlogController@standard')->name('blogs.standard');
-Route::get('/blogs/blog/showcode/{blog}', 'BlogController@showstandard')->name('blogs.showstandard');
+
+Route::get('/blogs/blog/showcode/{blog}', 'BlogController@showcode')->name('blogs.showcode');
+Route::get('/blogs/blog/showaudio/{blog}', 'BlogController@showaudio')->name('blogs.showaudio');
+Route::get('/blogs/blog/showvideo/{blog}', 'BlogController@showvideo')->name('blogs.showvideo');
+Route::get('/blogs/blog/showstandard/{blog}', 'BlogController@showstandard')->name('blogs.showstandard');
 
 Route::resource('exercises', 'ExerciseController');
 Route::resource('comments', 'CommentController');
