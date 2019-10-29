@@ -19,13 +19,13 @@
             <div class="masonry">
 
                 <div class="grid-sizer"></div>
-                @forelse($blogs as $blog)
+                @forelse($standard as $blog)
                     <article class="masonry__brick entry format-standard" data-aos="fade-up">
 
                         <div class="entry__thumb">
-                            <a href="{!! '/blogs/blog/showstandard/'.$blog->id !!}" class="entry__thumb-link">
-                                <img src="{{ asset('/storage/'. $blog->pics) }}"
-                                     srcset="{{ asset('/storage/'. $blog->pics) }} 1x, {{ asset('/storage/'. $blog->pics) }} 1x" alt="">
+                            <a href="{!! '/blogs/'.$blog->id !!}" class="entry__thumb-link">
+                                <img src="{{ asset('/storage/blog/'. $blog->pics) }}"
+                                     srcset="{{ asset('/storage/blog/'. $blog->pics) }} 1x, {{ asset('/storage/blog/'. $blog->pics) }} 1x" alt="">
                             </a>
                         </div>
 
@@ -35,7 +35,7 @@
                                 <div class="entry__date">
                                     {!! date_format($blog->created_at, 'M d, Y') !!}
                                 </div>
-                                <h1 class="entry__title"><a href="{!! '/blogs/blog/showstandard/'.$blog->id !!}">{!! $blog->title !!}</a></h1>
+                                <h1 class="entry__title"><a href="{!! '/blogs/'.$blog->id !!}">{!! $blog->title !!}</a></h1>
 
                             </div>
                             <div class="entry__excerpt">
@@ -60,7 +60,7 @@
         <div class="row">
             <div class="col-full">
                 <nav class="pgn">
-                    {!! $blogs->links() !!}
+                    {!! $standard->links() !!}
                 </nav>
             </div>
         </div>

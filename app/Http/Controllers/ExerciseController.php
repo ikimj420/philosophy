@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateExerciseRequest;
 use App\Http\Requests\UpdateExerciseRequest;
+use App\Models\Category;
+use App\Models\Exercise;
 use App\Repositories\ExerciseRepository;
 use App\Http\Controllers\AppBaseController;
+use App\User;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Storage;
 use Response;
+use Auth;
 
 class ExerciseController extends AppBaseController
 {
@@ -27,12 +32,11 @@ class ExerciseController extends AppBaseController
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Exercise $exercise)
     {
-        $exercises = $this->exerciseRepository->all();
+        $exercises = Exercise::with('category')->latest()->paginate(15);
 
-        return view('exercises.index')
-            ->with('exercises', $exercises);
+        return view('exercises.index', compact('exercises'));
     }
 
     /**
@@ -42,7 +46,9 @@ class ExerciseController extends AppBaseController
      */
     public function create()
     {
-        return view('exercises.create');
+        $categories = Category::get();
+
+        return view('exercises.create', compact('categories'));
     }
 
     /**
@@ -52,11 +58,19 @@ class ExerciseController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateExerciseRequest $request)
+    public function store(Request $request, User $user, Exercise $exercise)
     {
-        $input = $request->all();
+        $exercise = Exercise::create($this->validateRequest());
 
-        $exercise = $this->exerciseRepository->create($input);
+        $this->User($exercise);
+
+        $img_request = $request->hasFile('pics');
+        $img = $request->file('pics');
+        $folder = 'exercise';
+        $filenameToStore = $this->createImage($img_request, $img, $folder);
+        $exercise->pics = $filenameToStore;
+
+        $exercise->save();
 
         Flash::success('Exercise saved successfully.');
 
@@ -70,17 +84,33 @@ class ExerciseController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Exercise $exercise)
     {
-        $exercise = $this->exerciseRepository->find($id);
-
         if (empty($exercise)) {
             Flash::error('Exercise not found');
 
             return redirect(route('exercises.index'));
         }
 
-        return view('exercises.show')->with('exercise', $exercise);
+        return view('exercises.show', compact('exercise'));
+    }
+    public function food()
+    {
+        $food = Exercise::where('category_id', '=', '6')->latest()->paginate(10);
+        if (empty($food)) {
+            Flash::error('Exercise not found');
+            return redirect(route('exercises.index'));
+        }
+        return view('exercises.food', compact('food'));
+    }
+    public function cocktail()
+    {
+        $cocktail = Exercise::where('category_id', '=', '5')->latest()->paginate(10);
+        if (empty($cocktail)) {
+            Flash::error('Exercise not found');
+            return redirect(route('exercises.index'));
+        }
+        return view('exercises.cocktail', compact('cocktail'));
     }
 
     /**
@@ -90,9 +120,9 @@ class ExerciseController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit(Exercise $exercise)
     {
-        $exercise = $this->exerciseRepository->find($id);
+        $categories = Category::get();
 
         if (empty($exercise)) {
             Flash::error('Exercise not found');
@@ -100,7 +130,7 @@ class ExerciseController extends AppBaseController
             return redirect(route('exercises.index'));
         }
 
-        return view('exercises.edit')->with('exercise', $exercise);
+        return view('exercises.edit', compact('exercise', 'categories'));
     }
 
     /**
@@ -111,9 +141,9 @@ class ExerciseController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateExerciseRequest $request)
+    public function update(Request $request, Exercise $exercise, User $user)
     {
-        $exercise = $this->exerciseRepository->find($id);
+        $categories = Category::get();
 
         if (empty($exercise)) {
             Flash::error('Exercise not found');
@@ -121,11 +151,27 @@ class ExerciseController extends AppBaseController
             return redirect(route('exercises.index'));
         }
 
-        $exercise = $this->exerciseRepository->update($request->all(), $id);
+
+        $this->User($exercise);
+
+        $folder = 'exercise';
+        $img_request = $request->hasFile('pics');
+
+        if(Request()->hasFile('pics')){
+            $img = Request()->file('pics');
+            if($exercise->pics != 'default.png'){
+                // Delete Image
+                Storage::delete('public/exercise/'. $folder .'/'.$exercise->pics);
+            }
+            $filenameToStore = $this->updateImage($img_request, $img, $folder);
+            $exercise->pics = $filenameToStore;
+        }
+
+        $exercise->update($this->validateRequest());
 
         Flash::success('Exercise updated successfully.');
 
-        return redirect(route('exercises.index'));
+        return redirect(route('exercises.index', compact('categories')));
     }
 
     /**
@@ -147,10 +193,35 @@ class ExerciseController extends AppBaseController
             return redirect(route('exercises.index'));
         }
 
-        $this->exerciseRepository->delete($id);
+        $exercise->delete();
+        if($exercise->pics != 'default.png'){
+            // Delete Image
+            Storage::delete('public/exercise/'.$exercise->pics);
+        }
 
         Flash::success('Exercise deleted successfully.');
 
         return redirect(route('exercises.index'));
+    }
+
+    private function validateRequest()
+    {
+        return request()->validate([
+            'title' => 'required|min:4',
+            'ingredients' => 'required',
+            'make' => 'required',
+
+            'user_id' => 'sometimes',
+            'category_id' => 'sometimes',
+            'fromMin' => 'sometimes',
+            'video' => 'sometimes',
+            //no pics $exercise->pics = $filenameToStore;
+            'filenameToStore' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    }
+
+    private function User(Exercise $exercise)
+    {
+        $exercise->update([ 'user_id' => Auth::user()->id]);
     }
 }

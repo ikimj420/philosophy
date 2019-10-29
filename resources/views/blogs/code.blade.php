@@ -11,7 +11,7 @@
             <div class="col-full s-content__header" data-aos="fade-up">
                 <h1>Category: Code</h1>
 
-                <p class="lead">Here you can find latest php code.</p>
+                <p class="lead">Here you can find latest code.</p>
             </div>
         </div>
 
@@ -23,9 +23,9 @@
                 <article class="masonry__brick entry format-standard" data-aos="fade-up">
 
                     <div class="entry__thumb">
-                        <a href="{!! '/blogs/blog/showcode/'.$blog->id !!}" class="entry__thumb-link">
-                            <img src="{{ asset('/storage/'. $blog->pics) }}"
-                                 srcset="{{ asset('/storage/'. $blog->pics) }} 1x, {{ asset('/storage/'. $blog->pics) }} 1x" alt="">
+                        <a href="{!! '/blogs/'.$blog->id !!}" class="entry__thumb-link">
+                            <img src="{{ asset('/storage/blog/'. $blog->pics) }}"
+                                 srcset="{{ asset('/storage/blog/'. $blog->pics) }} 1x, {{ asset('/storage/blog/'. $blog->pics) }} 1x" alt="">
                         </a>
                     </div>
 
@@ -35,7 +35,7 @@
                             <div class="entry__date">
                                 {!! date_format($blog->created_at, 'M d, Y') !!}
                             </div>
-                            <h1 class="entry__title"><a href="{!! '/blogs/blog/showcode/'.$blog->id !!}">{!! $blog->title !!}</a></h1>
+                            <h1 class="entry__title"><a href="{!! '/blogs/'.$blog->id !!}">{!! $blog->title !!}</a></h1>
 
                         </div>
                         <div class="entry__excerpt">
@@ -67,5 +67,3 @@
 
     </section> <!-- s-content -->
 @endsection
-
-

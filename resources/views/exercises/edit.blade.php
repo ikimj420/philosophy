@@ -1,23 +1,28 @@
-@extends('layouts.app')
-
+@extends('layouts.site')
 @section('content')
-    <section class="content-header">
-        <h1>
-            Exercise
-        </h1>
-   </section>
-   <div class="content">
-       @include('adminlte-templates::common.errors')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($exercise, ['route' => ['exercises.update', $exercise->id], 'method' => 'patch']) !!}
+    <!-- styles
+        ================================================== -->
+    <section id="styles" class="s-styles">
+        <div class="row add-bottom">
+            @include('flash::message')
+            @include('adminlte-templates::common.errors')
+            <div class="row">
 
-                        @include('exercises.fields')
+                <div class="col-full s-content__main">
+                    {!! Form::open(['route' => ['exercises.destroy', $exercise->id], 'method' => 'delete']) !!}
+                    <div class='btn-group'>
+                        {!! Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn--primary full-width', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    </div>
+                    {!! Form::close() !!}
+                    <h3 class="add-bottom">Recipes</h3>
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+                    {!! Form::model($exercise, ['route' => ['exercises.update', $exercise->id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
+
+                    @include('exercises.fields')
+
+                    {!! Form::close() !!}
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end row -->
+    </section> <!-- end styles -->
 @endsection

@@ -81,8 +81,9 @@
                 <li class="has-children">
                     <a href="/" title="">Make</a>
                     <ul class="sub-menu">
-                        <li><a href="/exercises">Food</a></li>
-                        <li><a href="/exercises">Cocktail</a></li>
+                        <li><a href="/exercises">All Recipes</a></li>
+                        <li><a href="/exercises/exercise/6">Food</a></li>
+                        <li><a href="/exercises/exercise/5">Cocktail</a></li>
                     </ul>
                 </li>
                 <li><a href="/" title="">Contact</a></li>

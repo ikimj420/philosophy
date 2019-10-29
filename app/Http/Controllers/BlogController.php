@@ -48,7 +48,7 @@ class BlogController extends AppBaseController
     {
         $categories = Category::get();
 
-        return view('blogs.create', compact('categories', 'blogs'));
+        return view('blogs.create', compact('categories'));
     }
 
     /**
@@ -86,7 +86,6 @@ class BlogController extends AppBaseController
      */
     public function show(Blog $blog)
     {
-
         if (empty($blog)) {
             Flash::error('Blog not found');
 
@@ -94,6 +93,42 @@ class BlogController extends AppBaseController
         }
 
         return view('blogs.show', compact('blog'));
+    }
+    public function code()
+    {
+        $code = Blog::where('category_id', '=', '4')->latest()->paginate(10);
+        if (empty($code)) {
+            Flash::error('Blog not found');
+            return redirect(route('blogs.index'));
+        }
+        return view('blogs.code', compact('code'));
+    }
+    public function audio()
+    {
+        $audio = Blog::where('category_id', '=', '3')->latest()->paginate(10);
+        if (empty($audio)) {
+            Flash::error('Blog not found');
+            return redirect(route('blogs.index'));
+        }
+        return view('blogs.audio', compact('audio'));
+    }
+    public function video()
+    {
+        $video = Blog::where('category_id', '=', '2')->latest()->paginate(10);
+        if (empty($video)) {
+            Flash::error('Blog not found');
+            return redirect(route('blogs.index'));
+        }
+        return view('blogs.video', compact('video'));
+    }
+    public function standard()
+    {
+        $standard = Blog::where('category_id', '=', '1')->latest()->paginate(10);
+        if (empty($standard)) {
+            Flash::error('Blog not found');
+            return redirect(route('blogs.index'));
+        }
+        return view('blogs.standard', compact('standard'));
     }
 
     /**
@@ -195,7 +230,7 @@ class BlogController extends AppBaseController
             'code' => 'sometimes',
             'audio' => 'sometimes',
             'video' => 'sometimes',
-            //no pics $category->pics = $filenameToStore;
+            //no pics $blog->pics = $filenameToStore;
             'filenameToStore' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     }
