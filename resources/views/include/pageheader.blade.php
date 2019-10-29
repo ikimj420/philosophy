@@ -8,74 +8,61 @@
         <div class="col-full">
 
             <div class="featured">
-
-                <div class="featured__column featured__column--big">
-                    <div class="entry" style="background-image:url({{ asset('/public/site/thumbs/featured/featured-guitarman.jpg') }});">
+                @forelse($cocktails as $cocktail)
+                    <div class="featured__column featured__column--big">
+                    <div class="entry" style="background-image:url({{ asset('/storage/exercise/'. $cocktail->pics) }});">
 
                         <div class="entry__content">
-                            <span class="entry__category"><a href="#0">Music</a></span>
+                            <span class="entry__category"><a href="/">{!! $cocktail->category->name !!}</a></span>
 
-                            <h1><a href="#0" title="">What Your Music Preference Says About You and Your Personality.</a></h1>
+                            <h1><a href="/exercises/{!! $cocktail->id !!}" title="">{!! $cocktail->title !!}</a></h1>
 
                             <div class="entry__info">
-                                <a href="#0" class="entry__profile-pic">
-                                    <img class="avatar" src="images/avatars/user-03.jpg" alt="">
+                                <a href="/profiles/{!! $cocktail->user->id !!}" class="entry__profile-pic">
+                                    <img class="avatar" src="{{ asset('/storage/user/'. $cocktail->user->pics) }}" alt="{!! $cocktail->user->fullName !!}" >
                                 </a>
 
                                 <ul class="entry__meta">
-                                    <li><a href="#0">John Doe</a></li>
-                                    <li>December 29, 2017</li>
+                                    <li><a href="/profiles/{!! $cocktail->user->id !!}">{!! $cocktail->user->fullName !!}</a></li>
+                                    <li>{!! date_format($cocktail->created_at, 'M d, Y') !!}</li>
                                 </ul>
                             </div>
                         </div> <!-- end entry__content -->
 
                     </div> <!-- end entry -->
                 </div> <!-- end featured__big -->
-
+                @empty
+                    <p>
+                        Noting To Show
+                    </p>
+                @endforelse
                 <div class="featured__column featured__column--small">
-
-                    <div class="entry" style="background-image:url('images/thumbs/featured/featured-watch.jpg');">
+                @forelse($recipes as $recipe)
+                    <div class="entry" style="background-image:url({{ asset('/storage/exercise/'. $recipe->pics) }});">
 
                         <div class="entry__content">
-                            <span class="entry__category"><a href="#0">Management</a></span>
+                            <span class="entry__category"><a href="/">{!! $recipe->category->name !!}</a></span>
 
-                            <h1><a href="#0" title="">The Pomodoro Technique Really Works.</a></h1>
+                            <h1><a href="/exercises/{!! $recipe->id !!}" title="">{!! $recipe->title !!}</a></h1>
 
                             <div class="entry__info">
-                                <a href="#0" class="entry__profile-pic">
-                                    <img class="avatar" src="images/avatars/user-03.jpg" alt="">
+                                <a href="/profiles/{!! $recipe->user->id !!}" class="entry__profile-pic">
+                                    <img class="avatar" src="{{ asset('/storage/user/'. $recipe->user->pics) }}" alt="{!! $recipe->user->fullName !!}" >
                                 </a>
 
                                 <ul class="entry__meta">
-                                    <li><a href="#0">John Doe</a></li>
-                                    <li>December 27, 2017</li>
+                                    <li><a href="/profiles/{!! $recipe->user->id !!}">{!! $recipe->user->fullName !!}</a></li>
+                                    <li>{!! date_format($recipe->created_at, 'M d, Y') !!}</li>
                                 </ul>
                             </div>
                         </div> <!-- end entry__content -->
 
                     </div> <!-- end entry -->
-
-                    <div class="entry" style="background-image:url('images/thumbs/featured/featured-beetle.jpg');">
-
-                        <div class="entry__content">
-                            <span class="entry__category"><a href="#0">LifeStyle</a></span>
-
-                            <h1><a href="#0" title="">Throwback To The Good Old Days.</a></h1>
-
-                            <div class="entry__info">
-                                <a href="#0" class="entry__profile-pic">
-                                    <img class="avatar" src="images/avatars/user-03.jpg" alt="">
-                                </a>
-
-                                <ul class="entry__meta">
-                                    <li><a href="#0">John Doe</a></li>
-                                    <li>December 21, 2017</li>
-                                </ul>
-                            </div>
-                        </div> <!-- end entry__content -->
-
-                    </div> <!-- end entry -->
-
+                @empty
+                    <p>
+                        Noting To Show
+                    </p>
+                @endforelse
                 </div> <!-- end featured__small -->
             </div> <!-- end featured -->
 
