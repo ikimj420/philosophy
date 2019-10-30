@@ -32,4 +32,8 @@ Route::get('/exercises/exercise/5', 'ExerciseController@cocktail')->name('exerci
 
 Route::resource('comments', 'CommentController');
 Route::resource('tags', 'TagController');
-Route::resource('favorites', 'FavoriteController');
+//Add Remove Favorite
+Route::post('/favorite/{id} ', 'FavoriteController@saveExercise')->name('favorite.saveExercise');
+Route::delete('/favorite/{id} ', 'FavoriteController@destroyExercise')->name('favorite.destroyExercise');
+Route::post('/favorites/{id} ', 'FavoriteController@saveBlog')->name('favorites.saveBlog');
+Route::delete('/favorites/{id} ', 'FavoriteController@destroyBlog')->name('favorites.destroyBlog');

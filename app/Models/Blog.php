@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 
 /**
  * Class Blog
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Blog extends Model
 {
     use SoftDeletes;
+    use Favoriteable;
 
     public $table = 'blogs';
     

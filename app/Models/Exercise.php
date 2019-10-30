@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 
 /**
  * Class Exercise
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Exercise extends Model
 {
     use SoftDeletes;
+    use Favoriteable;
 
     public $table = 'exercises';
     
@@ -79,5 +81,15 @@ class Exercise extends Model
     public function user()
     {
         return $this->belongsTo(\App\User::class, 'user_id');
+    }
+
+    public function getExerciseIngredientsAttribute()
+    {
+        return explode("\r\n", $this->ingredients);
+    }
+
+    public function getExerciseMakeAttribute()
+    {
+        return explode("\r\n", $this->make);
     }
 }

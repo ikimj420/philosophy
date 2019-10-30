@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateFavoritesTable extends Migration
 {
@@ -17,9 +17,9 @@ class CreateFavoritesTable extends Migration
             $table->engine = 'InnoDB';
             $table->integer('user_id')->unsigned()->index();
             $table->morphs('favoriteable');
+
             $table->primary(['user_id', 'favoriteable_id', 'favoriteable_type']);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Eloquent as Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Favorite
@@ -15,15 +14,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Favorite extends Model
 {
-    use SoftDeletes;
-
     public $table = 'favorites';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-
-
-    protected $dates = ['deleted_at'];
 
 
 
@@ -49,6 +43,4 @@ class Favorite extends Model
         'favoriteable_type' => 'required',
         'favoriteable_id' => 'required'
     ];
-
-    
 }

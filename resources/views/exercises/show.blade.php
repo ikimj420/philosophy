@@ -5,7 +5,24 @@
     <section class="s-content s-content--narrow s-content--no-padding-bottom">
 
         <article class="row format-video">
-
+            <div>
+                @guest()
+                @else
+                    @if(!$fav)
+                        {!! Form::open(array('route' => ['favorite.saveExercise', $exercise->id] , 'method' => 'POST')) !!}
+                        <!-- Submit Field -->
+                            <div class="btn-group pull-right">
+                                {!! Form::submit('Add To Favorite', ['class' => 'btn full-width']) !!}
+                            </div>
+                            {!! Form::close() !!}
+                        @else
+                            {!! Form::open(['route' => ['favorite.destroyExercise', $exercise->id], 'method' => 'delete']) !!}
+                            <div class='btn-group pull-right'>
+                                {!! Form::button('Remove From Favorite', ['type' => 'submit', 'class' => 'btn btn--primary full-width', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            </div>
+                        @endif
+                @endguest
+            </div>
             <div class="s-content__header col-full">
                 <h1 class="s-content__header-title">
                     {!! $exercise->title !!}
@@ -28,15 +45,20 @@
             <div class="col-full s-content__main">
                 <div>
                     <h3> Ingredients </h3>
-                        <p>
-                             {!! $exercise->ingredients !!}
-                        </p>
+
+                    @if ($exercise->ingredients != "")
+                        @foreach($exercise->getExerciseIngredientsAttribute() as $ingredient)
+                            <p> {!! $ingredient !!}</p>
+                        @endforeach
+                    @endif
                 </div>
                 <div>
                     <h3> How To Make </h3>
-                    <p>
-                        {!! $exercise->make !!}
-                    </p>
+                    @if ($exercise->make != "")
+                        @foreach($exercise->getExerciseMakeAttribute() as $m)
+                            <p> {!! $m!!}</p>
+                        @endforeach
+                    @endif
                 </div>
                 <div>
                     <h3> Video To Start From Minutes : </h3>

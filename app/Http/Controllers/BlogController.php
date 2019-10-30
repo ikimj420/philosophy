@@ -86,13 +86,14 @@ class BlogController extends AppBaseController
      */
     public function show(Blog $blog)
     {
+        $fav = $blog->isFavorited(); // returns a boolean with true or false.
         if (empty($blog)) {
             Flash::error('Blog not found');
 
             return redirect(route('blogs.index'));
         }
 
-        return view('blogs.show', compact('blog'));
+        return view('blogs.show', compact('blog', 'fav'));
     }
     public function code()
     {

@@ -5,7 +5,24 @@
     <section class="s-content s-content--narrow s-content--no-padding-bottom">
 
         <article class="row format-video">
-
+            <div>
+                @guest()
+                @else
+                    @if(!$fav)
+                        {!! Form::open(array('route' => ['favorites.saveBlog', $blog->id] , 'method' => 'POST')) !!}
+                        <!-- Submit Field -->
+                            <div class="btn-group pull-right">
+                                {!! Form::submit('Add To Favorite', ['class' => 'btn full-width']) !!}
+                            </div>
+                            {!! Form::close() !!}
+                        @else
+                            {!! Form::open(['route' => ['favorites.destroyBlog', $blog->id], 'method' => 'delete']) !!}
+                            <div class='btn-group pull-right'>
+                                {!! Form::button('Remove From Favorite', ['type' => 'submit', 'class' => 'btn btn--primary full-width', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                            </div>
+                        @endif
+                @endguest
+            </div>
             <div class="s-content__header col-full">
                 <h1 class="s-content__header-title">
                     {!! $blog->title !!}

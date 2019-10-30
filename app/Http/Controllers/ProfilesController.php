@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
+use App\Models\Exercise;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Auth;
 
 class ProfilesController extends AppBaseController
 {
@@ -16,7 +19,11 @@ class ProfilesController extends AppBaseController
      */
     public function show(User $user)
     {
-        return view('profiles.show', compact('user'));
+        $user = Auth::user();
+        $blogs = $user->favorite(Blog::class); // returns a collection with the Blog the User marked as favorite
+        $exercises = $user->favorite(Exercise::class); // returns a collection with the Exercise the User marked as favorite
+
+        return view('profiles.show', compact('user', 'blogs', 'exercises'));
     }
 
     /**

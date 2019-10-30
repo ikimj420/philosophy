@@ -6,6 +6,7 @@ use App\Http\Requests\CreateExerciseRequest;
 use App\Http\Requests\UpdateExerciseRequest;
 use App\Models\Category;
 use App\Models\Exercise;
+use App\Models\Favorite;
 use App\Repositories\ExerciseRepository;
 use App\Http\Controllers\AppBaseController;
 use App\User;
@@ -86,13 +87,15 @@ class ExerciseController extends AppBaseController
      */
     public function show(Exercise $exercise)
     {
+        $fav = $exercise->isFavorited(); // returns a boolean with true or false.
+
         if (empty($exercise)) {
             Flash::error('Exercise not found');
 
             return redirect(route('exercises.index'));
         }
 
-        return view('exercises.show', compact('exercise'));
+        return view('exercises.show', compact('exercise', 'fav'));
     }
     public function food()
     {
