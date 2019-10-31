@@ -28,6 +28,7 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
     public function welcome()
     {
         $blogs = Blog::latest()->paginate(15);

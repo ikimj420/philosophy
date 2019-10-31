@@ -86,7 +86,7 @@
                         <li><a href="/exercises/exercise/5">Cocktail</a></li>
                     </ul>
                 </li>
-                <li><a href="/" title="">Contact</a></li>
+                <li><a href="/contact" title="">Contact</a></li>
             </ul> <!-- end header__nav -->
 
             <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>

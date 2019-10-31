@@ -14,12 +14,18 @@
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@welcome')->name('welcome');
+
+Route::get('/contact', 'ContactController@create');
+Route::post('/contact', 'ContactController@store');
+
 Route::get('profiles/{user}', 'ProfilesController@show')->name('profiles.show');
 Route::get('profiles/{user}/edit', 'ProfilesController@edit')->name('profiles.edit');
 Route::patch('profiles/{user}', 'ProfilesController@update')->name('profiles.update');
 
 Route::resource('categories', 'CategoryController');
+
 Route::resource('assignments', 'AssignmentController');
+
 Route::resource('blogs', 'BlogController');
 Route::get('/blogs/blog/4', 'BlogController@code')->name('blogs.code');
 Route::get('/blogs/blog/3', 'BlogController@audio')->name('blogs.audio');
@@ -31,6 +37,7 @@ Route::get('/exercises/exercise/6', 'ExerciseController@food')->name('exercises.
 Route::get('/exercises/exercise/5', 'ExerciseController@cocktail')->name('exercises.cocktail');
 
 Route::resource('comments', 'CommentController');
+
 Route::resource('tags', 'TagController');
 //Add Remove Favorite
 Route::post('/favorite/{id} ', 'FavoriteController@saveExercise')->name('favorite.saveExercise');
