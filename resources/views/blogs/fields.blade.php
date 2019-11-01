@@ -44,6 +44,12 @@
     {!! Form::text('video', null, ['class' => 'full-width']) !!}
 </div>
 
+<!-- Tags Field -->
+<div class="full-width">
+    {!! Form::label('blog_tag', 'Tags:') !!}
+    {!! Form::text('blog_tag', $blog->tagList ?? null, ['class' => 'full-width']) !!}
+</div>
+
 <!-- Pics Field -->
 <div class="full-width">
     {!! Form::label('pics', 'Pics:') !!}

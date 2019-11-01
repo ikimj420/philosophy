@@ -46,7 +46,7 @@ class BlogController extends AppBaseController
      */
     public function create()
     {
-        $categories = Category::get();
+        $categories = Category::where('id', '<=', 4)->get();
 
         return view('blogs.create', compact('categories'));
     }
@@ -60,6 +60,7 @@ class BlogController extends AppBaseController
      */
     public function store(Request $request, User $user, Blog $blog)
     {
+        $tags = explode(',', $request->blog_tag);
         $blog = Blog::create($this->validateRequest());
 
         $this->User($blog);
@@ -69,6 +70,8 @@ class BlogController extends AppBaseController
         $folder = 'blog';
         $filenameToStore = $this->createImage($img_request, $img, $folder);
         $blog->pics = $filenameToStore;
+
+        $blog->tag($tags);
 
         $blog->save();
 
@@ -141,7 +144,7 @@ class BlogController extends AppBaseController
      */
     public function edit(Blog $blog)
     {
-        $categories = Category::get();
+        $categories = Category::where('id', '<=', 4)->get();
 
         if (empty($blog)) {
             Flash::error('Blog not found');
@@ -162,6 +165,7 @@ class BlogController extends AppBaseController
      */
     public function update(Request $request, Blog $blog, User $user)
     {
+        $tags = explode(',', $request->blog_tag);
         $categories = Category::get();
 
         if (empty($blog)) {
@@ -186,6 +190,8 @@ class BlogController extends AppBaseController
         }
 
         $blog->update($this->validateRequest());
+
+        $blog->retag($tags);
 
         Flash::success('Blog updated successfully.');
 
@@ -231,6 +237,7 @@ class BlogController extends AppBaseController
             'code' => 'sometimes',
             'audio' => 'sometimes',
             'video' => 'sometimes',
+            'tag' => 'sometimes',
             //no pics $blog->pics = $filenameToStore;
             'filenameToStore' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);

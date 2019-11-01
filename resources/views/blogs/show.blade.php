@@ -72,8 +72,11 @@
                     <span>Post Tags</span>
 
                     <span class="s-content__tag-list">
-                        <a href="#0">orci</a>
-                        <a href="#0">lectus</a>
+                        @forelse($blog->tags as $tag)
+                            <a href="/blogs/{!! $blog->id !!}">{!! $tag->normalized !!}</a>
+                        @empty
+                            <span> Noting To Show</span>
+                        @endforelse
                     </span>
                 </p> <!-- end s-content__tags -->
 

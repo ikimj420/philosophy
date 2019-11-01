@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
+use Cviebrock\EloquentTaggable\Taggable;
 
 /**
  * Class Blog
@@ -26,6 +27,7 @@ class Blog extends Model
 {
     use SoftDeletes;
     use Favoriteable;
+    use Taggable;
 
     public $table = 'blogs';
     

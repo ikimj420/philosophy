@@ -47,7 +47,7 @@ class ExerciseController extends AppBaseController
      */
     public function create()
     {
-        $categories = Category::get();
+        $categories = Category::where('id', '>=', 5)->get();
 
         return view('exercises.create', compact('categories'));
     }
@@ -61,6 +61,7 @@ class ExerciseController extends AppBaseController
      */
     public function store(Request $request, User $user, Exercise $exercise)
     {
+        $tags = explode(',', $request->exercise_tag);
         $exercise = Exercise::create($this->validateRequest());
 
         $this->User($exercise);
@@ -70,6 +71,8 @@ class ExerciseController extends AppBaseController
         $folder = 'exercise';
         $filenameToStore = $this->createImage($img_request, $img, $folder);
         $exercise->pics = $filenameToStore;
+
+        $exercise->tag($tags);
 
         $exercise->save();
 
@@ -125,7 +128,7 @@ class ExerciseController extends AppBaseController
      */
     public function edit(Exercise $exercise)
     {
-        $categories = Category::get();
+        $categories = Category::where('id', '>=', 5)->get();
 
         if (empty($exercise)) {
             Flash::error('Exercise not found');
@@ -146,6 +149,7 @@ class ExerciseController extends AppBaseController
      */
     public function update(Request $request, Exercise $exercise, User $user)
     {
+        $tags = explode(',', $request->exercise_tag);
         $categories = Category::get();
 
         if (empty($exercise)) {
@@ -171,6 +175,8 @@ class ExerciseController extends AppBaseController
         }
 
         $exercise->update($this->validateRequest());
+
+        $exercise->retag($tags);
 
         Flash::success('Exercise updated successfully.');
 
@@ -218,6 +224,7 @@ class ExerciseController extends AppBaseController
             'category_id' => 'sometimes',
             'fromMin' => 'sometimes',
             'video' => 'sometimes',
+            'tag' => 'sometimes',
             //no pics $exercise->pics = $filenameToStore;
             'filenameToStore' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);

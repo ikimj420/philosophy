@@ -75,8 +75,11 @@
                     <span>Recipes Tags</span>
 
                     <span class="s-content__tag-list">
-                        <a href="#0">orci</a>
-                        <a href="#0">lectus</a>
+                        @forelse($exercise->tags as $tag)
+                            <a href="/exercises/{!! $exercise->id !!}">{!! $tag->normalized !!}</a>
+                        @empty
+                            <span> Noting To Show</span>
+                        @endforelse
                     </span>
                 </p> <!-- end s-content__tags -->
 
