@@ -14,7 +14,6 @@ class CreateFavoritesTable extends Migration
     public function up()
     {
         Schema::create('favorites', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
             $table->integer('user_id')->unsigned()->index();
             $table->morphs('favoriteable');
 

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Exercise;
-use App\Models\Favorite;
 use App\Http\Controllers\AppBaseController;
 use Flash;
 use Response;
@@ -48,28 +47,19 @@ class FavoriteController extends AppBaseController
      *
      * @return Response
      */
-    public function destroyExercise(Favorite $favorite, $id)
+    public function destroyExercise($id)
     {
-        $favorite = Favorite::where('favoriteable_id', '=', $id);
-        if (empty($favorite)) {
-            Flash::error('Favorite not found');
-
-            return redirect(route('favorites.index'));
-        }
-        $favorite->delete();
+        $exercise = Exercise::findorFail($id);
+        $exercise->removeFavorite(); // auth user removed from favorites this exercise
         Flash::success('Favorite deleted successfully.');
         return back();
     }
 
-    public function destroyBlog(Favorite $favorite, $id)
+    public function destroyBlog($id)
     {
-        $favorite = Favorite::where('favoriteable_id', '=', $id);
-        if (empty($favorite)) {
-            Flash::error('Favorite not found');
+        $blog = Blog::findorFail($id);
+        $blog->removeFavorite(); // auth user removed from favorites this blog
 
-            return redirect(route('favorites.index'));
-        }
-        $favorite->delete();
         Flash::success('Favorite deleted successfully.');
         return back();
     }

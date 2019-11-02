@@ -18,8 +18,9 @@
                         @else
                             {!! Form::open(['route' => ['favorite.destroyExercise', $exercise->id], 'method' => 'delete']) !!}
                             <div class='btn-group pull-right'>
-                                {!! Form::button('Remove From Favorite', ['type' => 'submit', 'class' => 'btn btn--primary full-width', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                                {!! Form::button('Remove From Favorite', ['type' => 'submit', 'class' => 'btn btn--primary full-width']) !!}
                             </div>
+                            {!! Form::close() !!}
                         @endif
                 @endguest
             </div>
