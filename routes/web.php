@@ -36,8 +36,6 @@ Route::resource('exercises', 'ExerciseController');
 Route::get('/exercises/exercise/6', 'ExerciseController@food')->name('exercises.food');
 Route::get('/exercises/exercise/5', 'ExerciseController@cocktail')->name('exercises.cocktail');
 
-Route::resource('comments', 'CommentController');
-
 Route::resource('tags', 'TagController');
 //Add Remove Favorite
 Route::post('/favorite/{id} ', 'FavoriteController@saveExercise')->name('favorite.saveExercise');

@@ -10,12 +10,11 @@
         <ul class="header__social">
             <div class="flex-center position-ref full-height">
                 @if (Route::has('login'))
-                    <div class="top-right links">
+                    <div>
                         @auth
                             <li>
                                 <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     Logout
                                 </a>
 
@@ -24,10 +23,12 @@
                                 </form>
                             </li>
                             <li>
-                                {!! Auth::user()->username; !!}
+							<li>
+								<a href="/profiles/{!! Auth::user()->id !!}" title=""> | {!! Auth::user()->fullName; !!}</a>
                             </li>
+							</li>
                         @else
-                            <a href="{{ route('login') }}">Login</a>
+                            <a href="{{ route('login') }}">Login | </a>
 
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}">Register</a>
@@ -63,10 +64,7 @@
 
             <ul class="header__nav">
                 <li><a href="/" title="">Home</a></li>
-                @auth()
-                    <li><a href="/profiles/{!! Auth::user()->id !!}" title="">Profile</a></li>
-                    <li><a href="/categories" title="">Categories</a></li>
-                @endauth
+                <li><a href="/categories" title="">Categories</a></li>
                 <li><a href="/assignments" title="">To-Do</a></li>
                 <li class="has-children">
                     <a href="/" title="">Blog</a>

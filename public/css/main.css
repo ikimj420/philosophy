@@ -1747,7 +1747,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 
 .header {
    position: absolute;
-   text-align: center;
+   text-align: center !important;
    top: 30px;
    width: 100%;
 }
@@ -4214,3 +4214,9 @@ footer h4::after {
 }
 
 /*# sourceMappingURL=main.css.map */
+
+.imgComment{
+    border-radius: 50%;
+    width: 6.6rem;
+    margin-right: 3rem;
+}

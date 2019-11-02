@@ -7,7 +7,7 @@
 <!-- Date Field -->
 <div class="full-width">
     {!! Form::label('date', 'Date:') !!}
-    {!! Form::date('date', null, ['class' => 'full-width','id'=>'date']) !!}
+    {!! Form::date('date', $assignment->date ?? null, ['class' => 'full-width','id'=>'date']) !!}
 </div>
 
 <!-- Isdone Field -->

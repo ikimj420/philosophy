@@ -6,6 +6,7 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteable;
 use Cviebrock\EloquentTaggable\Taggable;
+use Laravelista\Comments\Commentable;
 
 /**
  * Class Blog
@@ -28,6 +29,7 @@ class Blog extends Model
     use SoftDeletes;
     use Favoriteable;
     use Taggable;
+    use Commentable;
 
     public $table = 'blogs';
     

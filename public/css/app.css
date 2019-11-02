@@ -102,9 +102,9 @@ p {
 
 abbr[title],
 abbr[data-original-title] {
-  text-decoration: underline;
-  -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
+  text-decoration: none;
+  -webkit-text-decoration: none;
+          text-decoration: none;
   cursor: help;
   border-bottom: 0;
   -webkit-text-decoration-skip-ink: none;
@@ -177,7 +177,7 @@ a {
 
 a:hover {
   color: #1d68a7;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:not([href]):not([tabindex]) {
@@ -619,13 +619,13 @@ pre code {
   margin-left: auto;
 }
 
-.row {
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-}
+/* .row { */
+  /* display: -webkit-box; */
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* margin-right: -15px; */
+  /* margin-left: -15px; */
+/* } */
 
 .no-gutters {
   margin-right: 0;
@@ -2115,7 +2115,7 @@ pre code {
   width: 100%;
   height: calc(1.6em + 0.75rem + 2px);
   padding: 0.375rem 0.75rem;
-  font-size: 0.9rem;
+  font-size: 1.6rem;
   font-weight: 400;
   line-height: 1.6;
   color: #495057;
@@ -3330,12 +3330,12 @@ fieldset:disabled a.btn {
 
 .btn-link:hover {
   color: #1d68a7;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .btn-link:focus,
 .btn-link.focus {
-  text-decoration: underline;
+  text-decoration: none;
   box-shadow: none;
 }
 
@@ -5275,7 +5275,7 @@ input[type=button].btn-block {
 }
 
 .breadcrumb-item + .breadcrumb-item:hover::before {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .breadcrumb-item + .breadcrumb-item:hover::before {
@@ -11011,7 +11011,7 @@ a.text-dark:focus {
   }
 
   a:not(.btn) {
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   abbr[title]::after {

@@ -5,24 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Exercise;
 use App\Models\Favorite;
-use App\Repositories\FavoriteRepository;
 use App\Http\Controllers\AppBaseController;
-use App\User;
-use Illuminate\Http\Request;
 use Flash;
 use Response;
 Use Auth;
 
 class FavoriteController extends AppBaseController
 {
-    /** @var  FavoriteRepository */
-    private $favoriteRepository;
-
-    public function __construct(FavoriteRepository $favoriteRepo)
-    {
-        $this->favoriteRepository = $favoriteRepo;
-    }
-
     /**
      * Store a newly created Favorite in storage.
      *

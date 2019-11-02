@@ -6,11 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use ChristianKuri\LaravelFavorite\Traits\Favoriteability;
+use Laravelista\Comments\Commenter;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use Favoriteability;
+    use Commenter;
 
     /**
      * The attributes that are mass assignable.

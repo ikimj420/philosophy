@@ -18,7 +18,9 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
-        "laravelcollective/html": "^6.0"
+        "laravelcollective/html": "^6.0",
+        "laravelista/comments": "^3.1",
+        "twbs/bootstrap": "4.3.1"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
