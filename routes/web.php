@@ -12,7 +12,6 @@
 */
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@welcome')->name('welcome');
 
 Route::get('/contact', 'ContactController@create');
@@ -36,7 +35,8 @@ Route::resource('exercises', 'ExerciseController');
 Route::get('/exercises/exercise/6', 'ExerciseController@food')->name('exercises.food');
 Route::get('/exercises/exercise/5', 'ExerciseController@cocktail')->name('exercises.cocktail');
 
-Route::resource('tags', 'TagController');
+Route::get('/tag/tags/{tag}', 'TagsController@index');
+
 //Add Remove Favorite
 Route::post('/favorite/{id} ', 'FavoriteController@saveExercise')->name('favorite.saveExercise');
 Route::delete('/favorite/{id} ', 'FavoriteController@destroyExercise')->name('favorite.destroyExercise');

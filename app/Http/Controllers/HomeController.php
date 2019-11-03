@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
-use App\Models\Category;
 use App\Models\Exercise;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Cviebrock\EloquentTaggable\Models\Tag;
 
 class HomeController extends Controller
 {
@@ -19,26 +17,14 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }*/
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function welcome()
     {
-        return view('home');
-    }
-
-    public function welcome(Exercise $exercise, Blog $blog)
-    {
-        $post = $blog::allTagModels();
-        $exercises = $exercise::allTagModels();
-
         $blogs = Blog::latest()->paginate(15);
         $cocktails = Exercise::with('category')->with('user')->where('category_id', '=', '5')->latest()->take(1)->get();
         $recipes = Exercise::with('category')->with('user')->where('category_id', '=', '6')->latest()->take(2)->get();
 
-        return view('welcome', compact('blogs', 'cocktails', 'recipes', 'post', 'exercises', 'blog'));
+        $tags = Tag::pluck('name');
+
+        return view('welcome', compact('blogs', 'cocktails', 'recipes', 'tags'));
     }
 }

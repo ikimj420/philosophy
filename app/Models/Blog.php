@@ -26,9 +26,9 @@ use Laravelista\Comments\Commentable;
  */
 class Blog extends Model
 {
+    use Taggable;
     use SoftDeletes;
     use Favoriteable;
-    use Taggable;
     use Commentable;
 
     public $table = 'blogs';
