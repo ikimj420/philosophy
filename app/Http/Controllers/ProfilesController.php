@@ -19,7 +19,6 @@ class ProfilesController extends AppBaseController
      */
     public function show(User $user)
     {
-        $user = Auth::user();
         $blogs = $user->favorite(Blog::class); // returns a collection with the Blog the User marked as favorite
         $exercises = $user->favorite(Exercise::class); // returns a collection with the Exercise the User marked as favorite
 

@@ -1901,7 +1901,6 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .header__search-form::after {
-   content: "Press Enter to begin your search.";
    display: block;
    letter-spacing: 0.6px;
    font-size: 1.6rem;

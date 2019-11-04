@@ -42,3 +42,6 @@ Route::post('/favorite/{id} ', 'FavoriteController@saveExercise')->name('favorit
 Route::delete('/favorite/{id} ', 'FavoriteController@destroyExercise')->name('favorite.destroyExercise');
 Route::post('/favorites/{id} ', 'FavoriteController@saveBlog')->name('favorites.saveBlog');
 Route::delete('/favorites/{id} ', 'FavoriteController@destroyBlog')->name('favorites.destroyBlog');
+
+//search
+Route::get('/search', 'SearchController@index')->name('search');

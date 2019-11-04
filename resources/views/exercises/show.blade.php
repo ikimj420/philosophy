@@ -36,13 +36,13 @@
                     </li>
                 </ul>
             </div> <!-- end s-content__header -->
-
+            @if(!empty($exercise->video))
                 <div class="s-content__media col-full">
                     <div class="video-container">
                         <iframe src="{!! $exercise->video !!}?color=01aef0&title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     </div>
                 </div> <!-- end s-content__media -->
-
+            @endif
             <div class="col-full s-content__main">
                 <div>
                     <h3> Ingredients </h3>

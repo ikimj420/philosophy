@@ -41,6 +41,7 @@
 
 @include('include.preloader')
 
+@include('include.scriptSearch')
 <!-- Java Script
 ================================================== -->
 <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
