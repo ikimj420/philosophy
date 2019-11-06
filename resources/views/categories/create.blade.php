@@ -3,8 +3,6 @@
     <!-- styles
         ================================================== -->
     <section id="styles" class="s-styles">
-        <div class="row add-bottom">
-            @include('flash::message')
             @include('adminlte-templates::common.errors')
             <div class="row">
                 <div class="col-full s-content__main">

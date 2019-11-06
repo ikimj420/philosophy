@@ -2,30 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateExerciseRequest;
-use App\Http\Requests\UpdateExerciseRequest;
+
 use App\Models\Category;
 use App\Models\Exercise;
-use App\Models\Favorite;
-use App\Repositories\ExerciseRepository;
 use App\Http\Controllers\AppBaseController;
 use App\User;
 use Illuminate\Http\Request;
-use Flash;
 use Illuminate\Support\Facades\Storage;
-use Response;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class ExerciseController extends AppBaseController
 {
-    /** @var  ExerciseRepository */
-    private $exerciseRepository;
-
-    public function __construct(ExerciseRepository $exerciseRepo)
-    {
-        $this->exerciseRepository = $exerciseRepo;
-    }
-
     /**
      * Display a listing of the Exercise.
      *
@@ -47,7 +34,7 @@ class ExerciseController extends AppBaseController
      */
     public function create()
     {
-        $categories = Category::where('id', '>=', 5)->get();
+        $categories = Category::where('subCategory', '=', '2')->get();
 
         return view('exercises.create', compact('categories'));
     }
@@ -76,9 +63,7 @@ class ExerciseController extends AppBaseController
 
         $exercise->save();
 
-        Flash::success('Exercise saved successfully.');
-
-        return redirect(route('exercises.index'));
+        return redirect(route('exercises.index'))->with('success','Exercise Created Successfully!');
     }
 
     /**
@@ -93,8 +78,6 @@ class ExerciseController extends AppBaseController
         $fav = $exercise->isFavorited(); // returns a boolean with true or false.
 
         if (empty($exercise)) {
-            Flash::error('Exercise not found');
-
             return redirect(route('exercises.index'));
         }
 
@@ -104,7 +87,6 @@ class ExerciseController extends AppBaseController
     {
         $food = Exercise::where('category_id', '=', '6')->latest()->paginate(10);
         if (empty($food)) {
-            Flash::error('Exercise not found');
             return redirect(route('exercises.index'));
         }
         return view('exercises.food', compact('food'));
@@ -113,7 +95,6 @@ class ExerciseController extends AppBaseController
     {
         $cocktail = Exercise::where('category_id', '=', '5')->latest()->paginate(10);
         if (empty($cocktail)) {
-            Flash::error('Exercise not found');
             return redirect(route('exercises.index'));
         }
         return view('exercises.cocktail', compact('cocktail'));
@@ -128,11 +109,9 @@ class ExerciseController extends AppBaseController
      */
     public function edit(Exercise $exercise)
     {
-        $categories = Category::where('id', '>=', 5)->get();
+        $categories = Category::where('subCategory', '=', '2')->get();
 
         if (empty($exercise)) {
-            Flash::error('Exercise not found');
-
             return redirect(route('exercises.index'));
         }
 
@@ -153,8 +132,6 @@ class ExerciseController extends AppBaseController
         $categories = Category::get();
 
         if (empty($exercise)) {
-            Flash::error('Exercise not found');
-
             return redirect(route('exercises.index'));
         }
 
@@ -178,9 +155,7 @@ class ExerciseController extends AppBaseController
 
         $exercise->retag($tags);
 
-        Flash::success('Exercise updated successfully.');
-
-        return redirect(route('exercises.index', compact('categories')));
+        return redirect(route('exercises.index', compact('categories')))->with('success','Exercise Updated Successfully!');
     }
 
     /**
@@ -192,13 +167,9 @@ class ExerciseController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Exercise $exercise)
     {
-        $exercise = $this->exerciseRepository->find($id);
-
         if (empty($exercise)) {
-            Flash::error('Exercise not found');
-
             return redirect(route('exercises.index'));
         }
 
@@ -208,9 +179,7 @@ class ExerciseController extends AppBaseController
             Storage::delete('public/exercise/'.$exercise->pics);
         }
 
-        Flash::success('Exercise deleted successfully.');
-
-        return redirect(route('exercises.index'));
+        return redirect(route('exercises.index'))->with('success','Exercise Deleted Successfully!');
     }
 
     private function validateRequest()

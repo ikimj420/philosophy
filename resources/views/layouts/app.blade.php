@@ -47,7 +47,7 @@
 
 <body id="top">
 @include('include.pageheadermenu')
-
+@include('include.flash-message')
 @yield('content')
 
 @include('include.footer')

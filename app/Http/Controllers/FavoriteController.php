@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Exercise;
 use App\Http\Controllers\AppBaseController;
-use Flash;
-use Response;
-Use Auth;
 
 class FavoriteController extends AppBaseController
 {
@@ -23,9 +20,7 @@ class FavoriteController extends AppBaseController
         $favorite = Exercise::findorFail($id);
         $favorite->addFavorite(); // auth user added to favorites this exercise
 
-        Flash::success('Favorite saved successfully.');
-
-        return back();
+        return back()->with('success','Exercise Added Successfully To Favorite!');
     }
 
     public function saveBlog($id)
@@ -33,9 +28,7 @@ class FavoriteController extends AppBaseController
         $favorite = Blog::findorFail($id);
         $favorite->addFavorite(); // auth user added to favorites this blog
 
-        Flash::success('Favorite saved successfully.');
-
-        return back();
+        return back()->with('success','Blog Added Successfully To Favorite!');
     }
 
     /**
@@ -51,8 +44,8 @@ class FavoriteController extends AppBaseController
     {
         $exercise = Exercise::findorFail($id);
         $exercise->removeFavorite(); // auth user removed from favorites this exercise
-        Flash::success('Favorite deleted successfully.');
-        return back();
+
+        return back()->with('success','Exercise Successfully Removed From Favorite!');
     }
 
     public function destroyBlog($id)
@@ -60,7 +53,6 @@ class FavoriteController extends AppBaseController
         $blog = Blog::findorFail($id);
         $blog->removeFavorite(); // auth user removed from favorites this blog
 
-        Flash::success('Favorite deleted successfully.');
-        return back();
+        return back()->with('success','Blog Successfully Removed From Favorite!');
     }
 }

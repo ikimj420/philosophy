@@ -619,14 +619,6 @@ pre code {
   margin-left: auto;
 }
 
-/* .row { */
-  /* display: -webkit-box; */
-  /* display: flex; */
-  /* flex-wrap: wrap; */
-  /* margin-right: -15px; */
-  /* margin-left: -15px; */
-/* } */
-
 .no-gutters {
   margin-right: 0;
   margin-left: 0;
@@ -11011,7 +11003,7 @@ a.text-dark:focus {
   }
 
   a:not(.btn) {
-    text-decoration: none;
+    text-decoration: underline;
   }
 
   abbr[title]::after {

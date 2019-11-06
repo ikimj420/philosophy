@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->string('desc')->nullable();
             $table->string('pics')->nullable();
+            $table->integer('subCategory')->default('1');
             $table->timestamps();
             $table->softDeletes();
         });

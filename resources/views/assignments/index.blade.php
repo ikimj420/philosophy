@@ -4,8 +4,6 @@
     ================================================== -->
 <section id="styles" class="s-styles">
     <div class="row add-bottom">
-        @include('flash::message')
-        @include('adminlte-templates::common.errors')
         <div class="row">
 
             <div class="col-full s-content__main">
@@ -39,7 +37,7 @@
                     @forelse($assignments as $assignment)
                     <tr>
                         <td><a href="{!! route('assignments.edit', [$assignment->id]) !!}">{!! $assignment->body !!}</a></td>
-                        <td>{!! $assignment->date->format('M d, Y') !!}</td>
+                        <td> @if($assignment->date) {!! $assignment->date->format('M d, Y') !!} @endif </td>
                         <td>@if ( $assignment->isDone)  Done @endif</td>
                         <td>
                             {!! Form::open(['route' => ['assignments.destroy', $assignment->id], 'method' => 'delete']) !!}

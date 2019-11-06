@@ -34,7 +34,7 @@
 <body id="top">
 
 @include('include.pageheader')
-
+@include('include.flash-message')
 @yield('content')
 
 @include('include.footer')

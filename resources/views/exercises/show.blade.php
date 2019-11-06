@@ -77,7 +77,7 @@
 
                     <span class="s-content__tag-list">
                         @forelse($exercise->tags as $tag)
-                            <a href="/exercises/{!! $exercise->id !!}">{!! $tag->normalized !!}</a>
+                            <a href="/tag/tags/{{ $tag }}">{!! $tag->normalized !!}</a>
                         @empty
                             <span> Noting To Show</span>
                         @endforelse
@@ -89,7 +89,7 @@
 
                     <div class="s-content__author-about">
                         <h4 class="s-content__author-name">
-                            <a href="/profiles/{!! $exercise->user->id !!}">{!! $exercise->user->fullName !!}</a>
+                            <a href="/profiles/{!! $exercise->user->id !!}"> By {!! $exercise->user->fullName !!}</a>
                         </h4>
 
                         <p>

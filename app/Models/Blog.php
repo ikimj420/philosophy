@@ -85,4 +85,9 @@ class Blog extends Model
     {
         return $this->belongsTo(\App\User::class, 'user_id');
     }
+
+    public function getBlogBodyAttribute()
+    {
+        return explode("\r\n", $this->body);
+    }
 }

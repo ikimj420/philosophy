@@ -5,12 +5,8 @@
     <section class="s-content">
 
         <div class="row narrow">
-            @include('flash::message')
-            @include('adminlte-templates::common.errors')
-
             <div class="col-full s-content__header" data-aos="fade-up">
                 <h1>Category: Cocktail</h1>
-
                 <p class="lead">Here you can find latest video recipes for cocktail.</p>
             </div>
         </div>

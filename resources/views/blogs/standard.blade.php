@@ -5,8 +5,6 @@
     <section class="s-content">
 
         <div class="row narrow">
-            @include('flash::message')
-            @include('adminlte-templates::common.errors')
 
             <div class="col-full s-content__header" data-aos="fade-up">
                 <h1>Category: Standard</h1>

@@ -57,10 +57,11 @@
             @endif
 
             <div class="col-full s-content__main">
-
-                <p>
-                    {!! $blog->body !!}
-                </p>
+                @if ($blog->body != "")
+                    @foreach($blog->getBlogBodyAttribute() as $body)
+                        <p> {!! $body !!}</p>
+                    @endforeach
+                @endif
 
                 <p>
                     <img src="{{ asset('/storage/blog/'. $blog->pics) }}" alt="{!! $blog->title !!}" >
@@ -74,27 +75,22 @@
 
                     <span class="s-content__tag-list">
                         @forelse($blog->tags as $tag)
-                            <a href="/blogs/{!! $blog->id !!}">{!! $tag->normalized !!}</a>
+                            <a href="/tag/tags/{{ $tag }}">{!! $tag->normalized !!}</a>
                         @empty
                             <span> Noting To Show</span>
                         @endforelse
                     </span>
                 </p> <!-- end s-content__tags -->
 
-                <div class="s-content__author">
-                    <img src="{{ asset('/storage/user/'. $blog->user->pics) }}" alt="{!! $blog->user->fullName !!}">
-
-                    <div class="s-content__author-about">
-                        <h4 class="s-content__author-name">
-                            <a href="/profiles/{!! $blog->user->id !!}">{!! $blog->user->fullName !!}</a>
-                        </h4>
-
-                        <p>
-                            {!! $blog->user->email !!}
-                        </p>
-
+                    <div class="s-content__author">
+                        <img src="{{ asset('/storage/user/'. $blog->user->pics) }}" alt="{!! $blog->user->fullName !!}">
+                        <div class="s-content__author-about">
+                            <h4 class="s-content__author-name">
+                                <a href="/profiles/{!! $blog->user->id !!}"> By {!! $blog->user->fullName !!}</a>
+                            </h4>
+                            <p> {!! $blog->user->email !!} </p>
+                        </div>
                     </div>
-                </div>
 
                 {{--<div class="s-content__pagenav">
                     <div class="s-content__nav">

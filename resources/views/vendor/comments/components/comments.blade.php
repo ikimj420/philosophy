@@ -7,7 +7,9 @@
 @endphp
 
 @if($comments->count() < 1)
-    <div class="alert alert-warning">There are no comments yet.</div>
+    <div class="alert-box alert-box--info hideit">
+        <p>There Are No Comments Yet.</p>
+    </div> <!-- end info -->
     @else
     <h3 class="h2">{!! $comments->count() !!} Comments</h3>
 @endif

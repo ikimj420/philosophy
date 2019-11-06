@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Exercise;
-use Cviebrock\EloquentTaggable\Models\Tag;
+
 
 class TagsController extends Controller
 {

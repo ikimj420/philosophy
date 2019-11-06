@@ -12,23 +12,13 @@
                         <label for="email">{{ __('Username or Email') }}</label>
                             <input id="login" type="text"
                                    class="full-width form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}"
-                                   name="login" value="{{ old('username') ?: old('email') }}" required autofocus>
-                            @if ($errors->has('username') || $errors->has('email'))
-                                <span class="invalid-feedback">
-                                <strong>{{ $errors->first('username') ?: $errors->first('email') }}</strong>
-                            </span>
-                            @endif
+                                   name="login" value="{{ old('username') ?: old('email') }}"  autofocus>
                     </div>
                     <div class="form-field">
                         <label for="password">{{ __('Password') }}</label>
                         <input class="full-width" id="password" type="password" class="form-control
                             @error('password') is-invalid @enderror"
-                               name="password" required autocomplete="current-password">
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                               name="password"  autocomplete="current-password">
                     </div>
                     <label class="add-bottom">
                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>

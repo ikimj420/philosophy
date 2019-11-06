@@ -44,7 +44,7 @@ class AppBaseController extends Controller
             $filenameToStore = str_replace(' ','_', $filenameToStor);
             // resize image and save in folder
             $images = $img;
-            Image::make($images)->resize(500, null, function ($constraint){$constraint->aspectRatio();})->save( public_path('/storage/' . $folder . '/' . $filenameToStore ) );
+            Image::make($images)->fit(500, 500)->save( public_path('/storage/' . $folder . '/' . $filenameToStore ) );
 
         } else {
             $filenameToStore = 'default.png';
@@ -68,7 +68,7 @@ class AppBaseController extends Controller
             $filenameToStore = str_replace(' ','_', $filenameToStor);
             // resize image and save in folder
             $images = $img;
-            Image::make($images)->resize(500, null, function ($constraint){$constraint->aspectRatio();})->save( public_path('/storage/' . $folder . '/' . $filenameToStore ) );
+            Image::make($images)->fit(500, 500)->save( public_path('/storage/' . $folder . '/' . $filenameToStore ) );
 
         }
         return $filenameToStore;

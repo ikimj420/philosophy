@@ -7,7 +7,8 @@ use App\Models\Exercise;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProfilesController extends AppBaseController
 {
@@ -46,8 +47,6 @@ class ProfilesController extends AppBaseController
     public function update(Request $request, User $user)
     {
         if (empty($user)) {
-            Flash::error('User not found');
-
             return redirect(route('home'));
         }
         $folder = 'user';
@@ -64,7 +63,8 @@ class ProfilesController extends AppBaseController
         }
 
         $user->update($this->validateRequest());
-        return redirect('/profiles/'.$user->id);
+
+        return redirect('/profiles/'.$user->id)->with('success','User Updated Successfully!');
     }
     /**
      * Remove the specified resource from storage.
@@ -86,7 +86,7 @@ class ProfilesController extends AppBaseController
 
             'bio' => 'sometimes',
             //no pics $user->pics = $filenameToStore;
-            'filenameToStore' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'filenameToStore' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:48',
         ]);
     }
 }

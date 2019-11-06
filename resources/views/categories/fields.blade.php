@@ -10,6 +10,12 @@
     {!! Form::text('desc', null, ['class' => 'full-width']) !!}
 </div>
 
+<!-- subCategory Field -->
+<div class="full-width">
+    {!! Form::label('subCategory', 'Sub Category:') !!}
+    {!! Form::number('subCategory', null, ['class' => 'full-width']) !!}
+</div>
+
 <!-- Pics Field -->
 <div class="full-width">
     {!! Form::label('pics', 'Pics:') !!}

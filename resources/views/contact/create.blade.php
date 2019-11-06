@@ -5,8 +5,6 @@
     <section class="s-content s-content--narrow">
 
         <div class="row">
-            @include('flash::message')
-            @include('adminlte-templates::common.errors')
 
             <div class="s-content__header col-full">
                 <h1 class="s-content__header-title">

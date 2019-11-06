@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Flash;
-use Auth;
+
 
 class ContactController extends Controller
 {
@@ -26,8 +25,6 @@ class ContactController extends Controller
 
         Mail::to('philosphy@test.com')->send(new ContactMail($data));
 
-        Flash::success('Messages send.');
-
-        return back();
+        return back()->with('success','Message Sent Successfully!');
     }
 }

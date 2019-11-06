@@ -2,25 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateAssignmentRequest;
-use App\Http\Requests\UpdateAssignmentRequest;
 use App\Models\Assignment;
-use App\Repositories\AssignmentRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
-use Flash;
 use Illuminate\Support\Facades\Auth;
-use Response;
-use App\User;
+
 
 class AssignmentController extends AppBaseController
 {
-    /** @var  AssignmentRepository */
-    private $assignmentRepository;
-
-    public function __construct(AssignmentRepository $assignmentRepo)
+    public function __construct()
     {
-        $this->assignmentRepository = $assignmentRepo;
+        $this->middleware('auth');
     }
 
     /**
@@ -30,13 +22,12 @@ class AssignmentController extends AppBaseController
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $id = Auth::user()->id;
         $assignments = Assignment::with('user')->where('user_id', '=', $id)->latest()->paginate(5);
 
-        return view('assignments.index')
-            ->with('assignments', $assignments);
+        return view('assignments.index', compact('assignments'));
     }
 
     /**
@@ -56,22 +47,12 @@ class AssignmentController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateAssignmentRequest $request)
+    public function store(Assignment $assignment)
     {
+        $assignment = Assignment::create($this->validateRequest());
+        $this->User($assignment);
 
-/*        $input = $request->all();
-        $assignment = $this->assignmentRepository->create($input);*/
-        $assignment = new Assignment;
-        $assignment->user_id = Auth::user()->id;
-        $assignment->body = $request->input('body');
-        $assignment->date = $request->input('date');
-        $assignment->isDone = $request->input('isDone');
-
-        $assignment->save();
-
-        Flash::success('Assignment saved successfully.');
-
-        return redirect(route('assignments.index'));
+        return redirect(route('assignments.index'))->with('success','Assignment Created Successfully!');
     }
 
     /**
@@ -81,17 +62,13 @@ class AssignmentController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show(Assignment $assignment)
     {
-        $assignment = $this->assignmentRepository->find($id);
-
         if (empty($assignment)) {
-            Flash::error('Assignment not found');
-
             return redirect(route('assignments.index'));
         }
 
-        return view('assignments.show')->with('assignment', $assignment);
+        return view('assignments.show', compact('assignment'));
     }
 
     /**
@@ -101,17 +78,13 @@ class AssignmentController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit(Assignment $assignment)
     {
-        $assignment = $this->assignmentRepository->find($id);
-
         if (empty($assignment)) {
-            Flash::error('Assignment not found');
-
             return redirect(route('assignments.index'));
         }
 
-        return view('assignments.edit')->with('assignment', $assignment);
+        return view('assignments.edit', compact('assignment'));
     }
 
     /**
@@ -122,21 +95,15 @@ class AssignmentController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateAssignmentRequest $request)
+    public function update(Assignment $assignment, Request $request)
     {
-        $assignment = $this->assignmentRepository->find($id);
-
         if (empty($assignment)) {
-            Flash::error('Assignment not found');
-
             return redirect(route('assignments.index'));
         }
 
-        $assignment = $this->assignmentRepository->update($request->all(), $id);
+        $assignment->update($this->validateRequest());
 
-        Flash::success('Assignment updated successfully.');
-
-        return redirect(route('assignments.index'));
+        return redirect(route('assignments.index'))->with('success','Assignment Updated Successfully!');
     }
 
     /**
@@ -148,20 +115,29 @@ class AssignmentController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Assignment $assignment)
     {
-        $assignment = $this->assignmentRepository->find($id);
-
         if (empty($assignment)) {
-            Flash::error('Assignment not found');
-
             return redirect(route('assignments.index'));
         }
 
-        $this->assignmentRepository->delete($id);
+        $assignment->delete();
 
-        Flash::success('Assignment deleted successfully.');
+        return redirect(route('assignments.index'))->with('success','Assignment Deleted Successfully!');
+    }
 
-        return redirect(route('assignments.index'));
+    private function validateRequest()
+    {
+        return request()->validate([
+            'body' => 'required|min:4',
+
+            'date' => 'sometimes',
+            'isDone' => 'sometimes',
+        ]);
+    }
+
+    private function User(Assignment $assignment)
+    {
+        $assignment->update([ 'user_id' => Auth::user()->id]);
     }
 }

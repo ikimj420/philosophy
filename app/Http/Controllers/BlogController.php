@@ -2,29 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateBlogRequest;
-use App\Http\Requests\UpdateBlogRequest;
 use App\Models\Blog;
 use App\Models\Category;
-use App\Repositories\BlogRepository;
 use App\Http\Controllers\AppBaseController;
 use App\User;
 use Illuminate\Http\Request;
-use Flash;
-use Response;
-use Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends AppBaseController
 {
-    /** @var  BlogRepository */
-    private $blogRepository;
-
-    public function __construct(BlogRepository $blogRepo)
-    {
-        $this->blogRepository = $blogRepo;
-    }
-
     /**
      * Display a listing of the Blog.
      *
@@ -46,7 +33,7 @@ class BlogController extends AppBaseController
      */
     public function create()
     {
-        $categories = Category::where('id', '<=', 4)->get();
+        $categories = Category::where('subCategory', '=', '1')->get();
 
         return view('blogs.create', compact('categories'));
     }
@@ -75,9 +62,7 @@ class BlogController extends AppBaseController
 
         $blog->save();
 
-        Flash::success('Blog saved successfully.');
-
-        return redirect(route('blogs.index'));
+        return redirect(route('blogs.index'))->with('success','Blog Created Successfully!');
     }
 
     /**
@@ -91,8 +76,6 @@ class BlogController extends AppBaseController
     {
         $fav = $blog->isFavorited(); // returns a boolean with true or false.
         if (empty($blog)) {
-            Flash::error('Blog not found');
-
             return redirect(route('blogs.index'));
         }
 
@@ -102,7 +85,6 @@ class BlogController extends AppBaseController
     {
         $code = Blog::where('category_id', '=', '4')->latest()->paginate(10);
         if (empty($code)) {
-            Flash::error('Blog not found');
             return redirect(route('blogs.index'));
         }
         return view('blogs.code', compact('code'));
@@ -111,7 +93,6 @@ class BlogController extends AppBaseController
     {
         $audio = Blog::where('category_id', '=', '3')->latest()->paginate(10);
         if (empty($audio)) {
-            Flash::error('Blog not found');
             return redirect(route('blogs.index'));
         }
         return view('blogs.audio', compact('audio'));
@@ -120,7 +101,6 @@ class BlogController extends AppBaseController
     {
         $video = Blog::where('category_id', '=', '2')->latest()->paginate(10);
         if (empty($video)) {
-            Flash::error('Blog not found');
             return redirect(route('blogs.index'));
         }
         return view('blogs.video', compact('video'));
@@ -129,7 +109,6 @@ class BlogController extends AppBaseController
     {
         $standard = Blog::where('category_id', '=', '1')->latest()->paginate(10);
         if (empty($standard)) {
-            Flash::error('Blog not found');
             return redirect(route('blogs.index'));
         }
         return view('blogs.standard', compact('standard'));
@@ -144,11 +123,9 @@ class BlogController extends AppBaseController
      */
     public function edit(Blog $blog)
     {
-        $categories = Category::where('id', '<=', 4)->get();
+        $categories = Category::where('subCategory', '=', '1')->get();
 
         if (empty($blog)) {
-            Flash::error('Blog not found');
-
             return redirect(route('blogs.index'));
         }
 
@@ -169,8 +146,6 @@ class BlogController extends AppBaseController
         $categories = Category::get();
 
         if (empty($blog)) {
-            Flash::error('Blog not found');
-
             return redirect(route('blogs.index'));
         }
 
@@ -193,9 +168,7 @@ class BlogController extends AppBaseController
 
         $blog->retag($tags);
 
-        Flash::success('Blog updated successfully.');
-
-        return redirect(route('blogs.index', compact('categories')));
+        return redirect(route('blogs.index', compact('categories')))->with('success','Blog Updated Successfully!');
     }
 
     /**
@@ -210,8 +183,6 @@ class BlogController extends AppBaseController
     public function destroy(Blog $blog)
     {
         if (empty($blog)) {
-            Flash::error('Blog not found');
-
             return redirect(route('blogs.index'));
         }
 
@@ -221,9 +192,7 @@ class BlogController extends AppBaseController
             Storage::delete('public/blog/'.$blog->pics);
         }
 
-        Flash::success('Blog deleted successfully.');
-
-        return redirect(route('blogs.index'));
+        return redirect(route('blogs.index'))->with('success','Blog Deleted Successfully!');
     }
 
     private function validateRequest()

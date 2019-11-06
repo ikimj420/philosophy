@@ -934,8 +934,9 @@ button::-moz-focus-inner, input::-moz-focus-inner {
    margin-bottom: 3rem;
    border-radius: 3px;
    font-family: "metropolis-semibold", sans-serif;
-   font-size: 1.5rem;
+   font-size: 1.6rem;
    line-height: 1.6;
+    text-align: center;
 }
 
 .alert-box__close {
@@ -950,23 +951,23 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 }
 
 .alert-box--error {
-   background-color: #ffd1d2;
-   color: #e65153;
+   background-color: #c30000;
+   color: #b8b8b8;
 }
 
 .alert-box--success {
-   background-color: #c8e675;
-   color: #758c36;
+   background-color: #00c328;
+   color: #b8b8b8;
 }
 
 .alert-box--info {
-   background-color: #d7ecfb;
-   color: #4a95cc;
+   background-color: #00c3a6;
+   color: #b8b8b8;
 }
 
 .alert-box--notice {
-   background-color: #fff099;
-   color: #bba31b;
+   background-color: #c3ab00;
+   color: #b8b8b8;
 }
 
 

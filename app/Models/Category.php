@@ -41,7 +41,8 @@ class Category extends Model
         'id' => 'integer',
         'name' => 'string',
         'desc' => 'string',
-        'pics' => 'string'
+        'pics' => 'string',
+        'sucCategory' => 'integer'
     ];
 
     /**
@@ -50,7 +51,8 @@ class Category extends Model
      * @var array
      */
     public static $rules = [
-        'name' => 'required'
+        'name' => 'required',
+        'subCategory' => 'required'
     ];
 
     /**

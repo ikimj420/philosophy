@@ -6,8 +6,6 @@
 
         <div class="row narrow">
             <div class="col-full s-content__header" data-aos="fade-up">
-                @include('flash::message')
-                @include('adminlte-templates::common.errors')
                 <h1>Hire Is All Your's Post</h1>
             </div>
         </div>
