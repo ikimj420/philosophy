@@ -6,7 +6,7 @@
 
         <div class="row narrow">
             <div class="col-full s-content__header" data-aos="fade-up">
-                <h1>Hire Is All Your's Post</h1>
+                <h1>Hire Is All Your's Blogs</h1>
             </div>
         </div>
         @auth

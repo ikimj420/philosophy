@@ -75,7 +75,9 @@
                 <li class="has-children">
                     <a href="/" title="">Blog</a>
                     <ul class="sub-menu">
-                        <li><a href="/blogs">All Blogs</a></li>
+                        @auth
+                            <li><a href="/blogs">All Blogs</a></li>
+                        @endauth
                         <li><a href="/blogs/blog/4">Code</a></li>
                         <li><a href="/blogs/blog/3">Audio Post</a></li>
                         <li><a href="/blogs/blog/2">Video Post</a></li>
@@ -85,7 +87,9 @@
                 <li class="has-children">
                     <a href="/" title="">Make</a>
                     <ul class="sub-menu">
-                        <li><a href="/exercises">All Recipes</a></li>
+                        @auth
+                            <li><a href="/exercises">All Recipes</a></li>
+                        @endauth
                         <li><a href="/exercises/exercise/6">Food</a></li>
                         <li><a href="/exercises/exercise/5">Cocktail</a></li>
                     </ul>

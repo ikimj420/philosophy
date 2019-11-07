@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfilesController extends AppBaseController
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('show');
+    }
     /**
      * Display the specified resource.
      *
@@ -34,7 +38,7 @@ class ProfilesController extends AppBaseController
      */
     public function edit(User $user)
     {
-        if(Auth::id() !== $user->user_id && Auth::user()->isAdmin !== 1){
+        if(Auth::id() !== $user->id && Auth::user()->isAdmin !== 1){
             return redirect('/');
         }
 
@@ -70,15 +74,20 @@ class ProfilesController extends AppBaseController
 
         return redirect('/profiles/'.$user->id)->with('success','User Updated Successfully!');
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(User $user)
     {
-        //
+        if (empty($user)) {
+            return redirect(route('welcome'));
+        }
+
+        $user->delete();
+        if($user->pics != 'default.png'){
+            // Delete Image
+            Storage::delete('public/user/'.$user->pics);
+        }
+
+        return redirect(route('welcome'))->with('success','User Deleted Successfully!');
     }
 
     protected function validateRequest()

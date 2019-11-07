@@ -14,7 +14,7 @@ class BlogController extends AppBaseController
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('index', 'show', 'code', 'audio', 'video', 'standard');
+        $this->middleware('auth')->except('show', 'code', 'audio', 'video', 'standard');
     }
     /**
      * Display a listing of the Blog.
@@ -25,7 +25,8 @@ class BlogController extends AppBaseController
      */
     public function index()
     {
-        $blogs = Blog::with('category')->latest()->paginate(15);
+        $id = Auth::id();
+        $blogs = Blog::with('category')->where('user_id', '=', $id)->latest()->paginate(15);
 
         return view('blogs.index', compact('blogs'));
     }

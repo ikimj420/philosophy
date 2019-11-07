@@ -15,7 +15,7 @@ class ExerciseController extends AppBaseController
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('index', 'show', 'food', 'cocktail');
+        $this->middleware('auth')->except('show', 'food', 'cocktail');
     }
     /**
      * Display a listing of the Exercise.
@@ -26,7 +26,8 @@ class ExerciseController extends AppBaseController
      */
     public function index(Exercise $exercise)
     {
-        $exercises = Exercise::with('category')->latest()->paginate(15);
+        $id = Auth::id();
+        $exercises = Exercise::with('category')->where('user_id', '=', $id)->latest()->paginate(15);
 
         return view('exercises.index', compact('exercises'));
     }

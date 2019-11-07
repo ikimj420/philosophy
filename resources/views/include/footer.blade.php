@@ -14,9 +14,9 @@
                 @guest()
                 @else
                     <li><a href="/assignments" title="">To-Do</a></li>
+                    <li><a href="/blogs">All Blogs</a></li>
+                    <li><a href="/exercises">All Recipes</a></li>
                 @endguest
-				<li><a href="/blogs">All Blogs</a></li>
-                <li><a href="/exercises">All Recipes</a></li>
                 <li><a href="/contact" title="">Contact</a></li>
                 </ul>
 

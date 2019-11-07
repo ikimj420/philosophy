@@ -7,6 +7,12 @@
             <div class="row">
 
                 <div class="col-full s-content__main">
+                    {!! Form::open(['route' => ['profiles.destroy', $user->id], 'method' => 'delete']) !!}
+                    <div class='btn-group'>
+                        {!! Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn--primary full-width', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    </div>
+                    {!! Form::close() !!}
+
                     <h3 class="add-bottom">Profile</h3>
 
                     {!! Form::model($user, ['route' => ['profiles.update', $user->id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
