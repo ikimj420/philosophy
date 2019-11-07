@@ -50,4 +50,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Blogs::class);
     }
+    public function exercises()
+    {
+        return $this->hasMany(\App\Models\Exercise::class);
+    }
 }

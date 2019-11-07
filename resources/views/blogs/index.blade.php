@@ -9,13 +9,13 @@
                 <h1>Hire Is All Your's Post</h1>
             </div>
         </div>
-
-        <div class="row">
-            <h1 class="pull-right">
-                <a class="btn full-width pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('blogs.create') !!}">Add New Blog</a>
-            </h1>
-        </div>
-
+        @auth
+            <div class="row">
+                <h1 class="pull-right">
+                    <a class="btn full-width pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('blogs.create') !!}">Add New Blog</a>
+                </h1>
+            </div>
+        @endauth
         <div class="row masonry-wrap">
             <div class="masonry">
 
@@ -35,7 +35,6 @@
                                 <div class="entry__header">
 
                                     <div class="entry__date">
-                                        <a href="{!! route('blogs.edit', [$blog->id]) !!}">Edit</a>
                                         <p>{!! date_format($blog->created_at, 'M d, Y') !!}</p>
                                     </div>
                                     <h1 class="entry__title"><a href="{!! '/blogs/'.$blog->id !!}">{!! $blog->title !!}</a></h1>
@@ -48,7 +47,7 @@
                                 </div>
                                 <div class="entry__meta">
                                     <span class="entry__meta-links">
-                                        <a href="/">{!! $blog->category->name !!}</a>
+                                        <a href="/profiles/{!! $blog->user_id !!}">{!! $blog->user['fullName'] !!}</a>
                                     </span>
                                 </div>
                             </div>
@@ -71,7 +70,6 @@
                                 <div class="entry__header">
 
                                     <div class="entry__date">
-                                        <a href="{!! route('blogs.edit', [$blog->id]) !!}">Edit</a>
                                         <p>{!! date_format($blog->created_at, 'M d, Y') !!}</p>
                                     </div>
                                     <h1 class="entry__title"><a href="{!! '/blogs/'.$blog->id !!}">{!! $blog->title !!}</a></h1>
@@ -84,7 +82,7 @@
                                 </div>
                                 <div class="entry__meta">
                                     <span class="entry__meta-links">
-                                        <a href="/">{!! $blog->category->name !!}</a>
+                                        <a href="/profiles/{!! $blog->user_id !!}">{!! $blog->user['fullName'] !!}</a>
                                     </span>
                                 </div>
                             </div>
@@ -104,7 +102,6 @@
                                 <div class="entry__header">
 
                                     <div class="entry__date">
-                                        <a href="{!! route('blogs.edit', [$blog->id]) !!}">Edit</a>
                                         <p>{!! date_format($blog->created_at, 'M d, Y') !!}</p>
                                     </div>
                                     <h1 class="entry__title"><a href="{!! '/blogs/'.$blog->id !!}">{!! $blog->title !!}</a></h1>
@@ -117,7 +114,7 @@
                                 </div>
                                 <div class="entry__meta">
                                     <span class="entry__meta-links">
-                                        <a href="/">{!! $blog->category->name !!}</a>
+                                        <a href="/profiles/{!! $blog->user_id !!}">{!! $blog->user['fullName'] !!}</a>
                                     </span>
                                 </div>
                             </div>

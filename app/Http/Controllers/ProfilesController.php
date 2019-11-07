@@ -34,6 +34,10 @@ class ProfilesController extends AppBaseController
      */
     public function edit(User $user)
     {
+        if(Auth::id() !== $user->user_id && Auth::user()->isAdmin !== 1){
+            return redirect('/');
+        }
+
         return view('profiles.edit', compact('user'));
     }
 

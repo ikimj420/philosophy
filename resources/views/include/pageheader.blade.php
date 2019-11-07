@@ -13,7 +13,7 @@
                     <div class="entry" style="background-image:url({{ asset('/storage/exercise/'. $cocktail->pics) }});">
 
                         <div class="entry__content">
-                            <span class="entry__category"><a href="/">{!! $cocktail->category->name !!}</a></span>
+                            <span class="entry__category"><a href="/exercises/exercise/{!! $cocktail->category_id !!}">{!! $cocktail->category->name !!}</a></span>
 
                             <h1><a href="/exercises/{!! $cocktail->id !!}" title="">{!! $cocktail->title !!}</a></h1>
 
@@ -41,7 +41,7 @@
                     <div class="entry" style="background-image:url({{ asset('/storage/exercise/'. $recipe->pics) }});">
 
                         <div class="entry__content">
-                            <span class="entry__category"><a href="/">{!! $recipe->category->name !!}</a></span>
+                            <span class="entry__category"><a href="/exercises/exercise/{!! $recipe->category_id !!}">{!! $recipe->category->name !!}</a></span>
 
                             <h1><a href="/exercises/{!! $recipe->id !!}" title="">{!! $recipe->title !!}</a></h1>
 

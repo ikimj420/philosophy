@@ -35,7 +35,11 @@
                         <h3 class="quarter-top-margin">Biography</h3>
                         <p>{!! $user->bio; !!}</p>
                     </div>
-                    <a class="btn full-width" href="{!! route('profiles.edit', [$user->id]) !!}">Edit User</a>
+                    @auth
+                        @if(Auth::id() === $user->id || Auth::user()->isAdmin === 1)
+                            <a class="btn full-width" href="{!! route('profiles.edit', [$user->id]) !!}">Edit User</a>
+                        @endif
+                    @endauth
                 </div>
 
 
@@ -44,47 +48,47 @@
         </div> <!-- end row -->
 
         <hr>
+        @auth
+            <div class="row">
 
-        <div class="row">
+                <div class="s-content__header col-full">
+                    <h1 class="s-content__header-title">
+                        {!! $user->fullName; !!} Favorites
+                    </h1>
+                </div> <!-- end s-content__header -->
 
-            <div class="s-content__header col-full">
-                <h1 class="s-content__header-title">
-                    {!! $user->fullName; !!} Your's Favorites
-                </h1>
-            </div> <!-- end s-content__header -->
+                <div class="col-full s-content__main">
 
-            <div class="col-full s-content__main">
+                    <div class="row block-1-2 block-tab-full">
+                        @forelse($blogs as $blog)
+                            <div class="col-block">
+                                <h3 class="quarter-top-margin"><a href="/blogs/{!! $blog->id; !!}">{!! $blog->title; !!}</a></h3>
+                                <p>Blog</p>
+                            </div>
+                        @empty
+                            <p>
+                                Noting To Show
+                            </p>
+                        @endforelse
+                    </div>
 
-                <div class="row block-1-2 block-tab-full">
-                    @forelse($blogs as $blog)
-                        <div class="col-block">
-                            <h3 class="quarter-top-margin"><a href="/blogs/{!! $blog->id; !!}">{!! $blog->title; !!}</a></h3>
-                            <p>Blog</p>
-                        </div>
-                    @empty
-                        <p>
-                            Noting To Show
-                        </p>
-                    @endforelse
-                </div>
-
-                <div class="row block-1-2 block-tab-full">
-                    @forelse($exercises as $exercise)
-                        <div class="col-block">
-                            <h3 class="quarter-top-margin"><a href="/exercises/{!! $exercise->id; !!}">{!! $exercise->title; !!}</a></h3>
-                            <p>Recipes</p>
-                        </div>
-                    @empty
-                        <p>
-                            Noting To Show
-                        </p>
-                    @endforelse
-                </div>
+                    <div class="row block-1-2 block-tab-full">
+                        @forelse($exercises as $exercise)
+                            <div class="col-block">
+                                <h3 class="quarter-top-margin"><a href="/exercises/{!! $exercise->id; !!}">{!! $exercise->title; !!}</a></h3>
+                                <p>Recipes</p>
+                            </div>
+                        @empty
+                            <p>
+                                Noting To Show
+                            </p>
+                        @endforelse
+                    </div>
 
 
-            </div> <!-- end s-content__main -->
+                </div> <!-- end s-content__main -->
 
-        </div> <!-- end row -->
-
+            </div> <!-- end row -->
+        @endauth
     </section> <!-- s-content -->
 @endsection

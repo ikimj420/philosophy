@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Http\Controllers\AppBaseController;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends AppBaseController
@@ -21,8 +23,12 @@ class CategoryController extends AppBaseController
      *
      * @return Response
      */
-    public function index()
+    public function index(User $user)
     {
+        if(!Auth::user()->isAdmin){
+            return redirect('/');
+        }
+
         $categories = Category::latest()->get();
 
         return view('categories.index', compact('categories'));
@@ -35,6 +41,10 @@ class CategoryController extends AppBaseController
      */
     public function create()
     {
+        if(!Auth::user()->isAdmin){
+            return redirect('/')->with('error', 'No No No!!!');
+        }
+
         return view('categories.create');
     }
 
@@ -47,6 +57,10 @@ class CategoryController extends AppBaseController
      */
     public function store(Request $request, Category $category)
     {
+        if(!Auth::user()->isAdmin){
+            return redirect('/');
+        }
+
         $category = Category::create($this->validateRequest());
 
         $img_request = $request->hasFile('pics');
@@ -69,6 +83,10 @@ class CategoryController extends AppBaseController
      */
     public function show(Category $category)
     {
+        if(!Auth::user()->isAdmin){
+            return redirect('/');
+        }
+
         if (empty($category)) {
             return redirect(route('categories.index'));
         }
@@ -85,6 +103,10 @@ class CategoryController extends AppBaseController
      */
     public function edit(Category $category)
     {
+        if(!Auth::user()->isAdmin){
+            return redirect('/');
+        }
+
         if (empty($category)) {
             return redirect(route('categories.index'));
         }
@@ -102,6 +124,10 @@ class CategoryController extends AppBaseController
      */
     public function update(Request $request, Category $category)
     {
+        if(!Auth::user()->isAdmin){
+            return redirect('/');
+        }
+
         if (empty($category)) {
             Flash::error('Category not found');
             return redirect(route('categories.index'));

@@ -11,8 +11,10 @@
 
                 <ul class="s-footer__linklist">
                 <li><a href="/" title="">Home</a></li>
-                <li><a href="/categories" title="">Categories</a></li>
-                <li><a href="/assignments" title="">To-Do</a></li>
+                @guest()
+                @else
+                    <li><a href="/assignments" title="">To-Do</a></li>
+                @endguest
 				<li><a href="/blogs">All Blogs</a></li>
                 <li><a href="/exercises">All Recipes</a></li>
                 <li><a href="/contact" title="">Contact</a></li>
@@ -57,7 +59,7 @@
         <div class="row">
             <div class="col-full">
                 <div class="s-footer__copyright">
-                    <span>© Copyright Philosophy 2018</span>
+                    <span>© Copyright Philosophy 2019</span>
                     <span>Site Template by <a href="https://colorlib.com/">Colorlib</a></span>
                 </div>
 

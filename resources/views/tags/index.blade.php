@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="entry__meta">
                                     <span class="entry__meta-links">
-                                        <a href="/">{!! $blog->category->name !!}</a>
+                                        <a href="/profiles/{!! $blog->user_id !!}">{!! $blog->user['fullName'] !!}</a>
                                     </span>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="entry__meta">
                                     <span class="entry__meta-links">
-                                        <a href="/">{!! $blog->category->name !!}</a>
+                                        <a href="/profiles/{!! $blog->user_id !!}">{!! $blog->user['fullName'] !!}</a>
                                     </span>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                                 </div>
                                 <div class="entry__meta">
                                     <span class="entry__meta-links">
-                                        <a href="/">{!! $blog->category->name !!}</a>
+                                        <a href="/profiles/{!! $blog->user_id !!}">{!! $blog->user['fullName'] !!}</a>
                                     </span>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                             </div>
                             <div class="entry__meta">
                                     <span class="entry__meta-links">
-                                        <a href="/">{!! $exercise->category->name !!}</a>
+                                        <a href="/profiles/{!! $exercise->user_id !!}">{!! $exercise->user['fullName'] !!}</a>
                                     </span>
                             </div>
                         </div>

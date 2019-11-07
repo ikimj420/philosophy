@@ -43,7 +43,7 @@
                             </div>
                             <div class="entry__meta">
                             <span class="entry__meta-links">
-                                <a href="/">{!! $blog->category->name !!}</a>
+                                <a href="/profiles/{!! $blog->user_id !!}">{!! $blog->user['fullName'] !!}</a>
                             </span>
                             </div>
                         </div>

@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends AppBaseController
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show', 'code', 'audio', 'video', 'standard');
+    }
     /**
      * Display a listing of the Blog.
      *
@@ -123,6 +127,10 @@ class BlogController extends AppBaseController
      */
     public function edit(Blog $blog)
     {
+        if(Auth::id() !== $blog->user_id && Auth::user()->isAdmin !== 1){
+            return redirect('/');
+        }
+
         $categories = Category::where('subCategory', '=', '1')->get();
 
         if (empty($blog)) {

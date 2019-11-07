@@ -64,8 +64,14 @@
 
             <ul class="header__nav">
                 <li><a href="/" title="">Home</a></li>
-                <li><a href="/categories" title="">Categories</a></li>
-                <li><a href="/assignments" title="">To-Do</a></li>
+                @guest()
+                @elseif(Auth::user()->isAdmin)
+                    <li><a href="/categories" title="">Categories</a></li>
+                @endguest
+                @guest()
+                @else
+                    <li><a href="/assignments" title="">To-Do</a></li>
+                @endguest
                 <li class="has-children">
                     <a href="/" title="">Blog</a>
                     <ul class="sub-menu">

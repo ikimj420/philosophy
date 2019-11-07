@@ -5,6 +5,13 @@
     <section class="s-content s-content--narrow s-content--no-padding-bottom">
 
         <article class="row format-video">
+            @auth
+                @if(Auth::id() === $exercise->user_id || Auth::user()->isAdmin === 1)
+                    <button class="btn btn--stroke pull-left">
+                        <a href="{!! route('exercises.edit', [$exercise->id]) !!}">Edit</a>
+                    </button>
+                @endif
+            @endauth
             <div>
                 @guest()
                 @else
@@ -32,7 +39,7 @@
                     <li class="date">{!! date_format($exercise->created_at, 'M d, Y') !!}</li>
                     <li class="cat">
                         In
-                        <a href="/">{!! $exercise->category->name !!}</a>
+                        <a href="/exercises/exercise/{!! $exercise->category_id !!}">{!! $exercise->category->name !!}</a>
                     </li>
                 </ul>
             </div> <!-- end s-content__header -->

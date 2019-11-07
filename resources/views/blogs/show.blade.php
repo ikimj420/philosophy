@@ -5,6 +5,13 @@
     <section class="s-content s-content--narrow s-content--no-padding-bottom">
 
         <article class="row format-video">
+            @auth
+                @if(Auth::id() === $blog->user_id || Auth::user()->isAdmin === 1)
+                    <button class="btn btn--stroke pull-left">
+                        <a href="{!! route('blogs.edit', [$blog->id]) !!}">Edit</a>
+                    </button>
+                @endif
+            @endauth
             <div>
                 @guest()
                 @else
@@ -32,7 +39,7 @@
                     <li class="date">{!! date_format($blog->created_at, 'M d, Y') !!}</li>
                     <li class="cat">
                         In
-                        <a href="/">{!! $blog->category->name !!}</a>
+                        <a href="/blogs/blog/{!! $blog->category_id !!}">{!! $blog->category->name !!}</a>
                     </li>
                 </ul>
             </div> <!-- end s-content__header -->

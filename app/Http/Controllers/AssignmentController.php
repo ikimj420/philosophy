@@ -80,6 +80,10 @@ class AssignmentController extends AppBaseController
      */
     public function edit(Assignment $assignment)
     {
+        if(Auth::id() !== $assignment->user_id && Auth::user()->isAdmin !== 1){
+            return redirect('/');
+        }
+
         if (empty($assignment)) {
             return redirect(route('assignments.index'));
         }

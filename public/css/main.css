@@ -952,22 +952,22 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 
 .alert-box--error {
    background-color: #c30000;
-   color: #b8b8b8;
+   color: #000000;
 }
 
 .alert-box--success {
    background-color: #00c328;
-   color: #b8b8b8;
+   color: #000000;
 }
 
 .alert-box--info {
    background-color: #00c3a6;
-   color: #b8b8b8;
+   color: #000000;
 }
 
 .alert-box--notice {
    background-color: #c3ab00;
-   color: #b8b8b8;
+   color: #000000;
 }
 
 

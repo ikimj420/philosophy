@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="entry__meta">
                                     <span class="entry__meta-links">
-                                        <a href="/">{!! $blog->category->name !!}</a>
+                                        <a href="/profiles/{!! $blog->user_id !!}">{!! $blog->user['fullName'] !!}</a>
                                     </span>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="entry__meta">
                                     <span class="entry__meta-links">
-                                        <a href="/">{!! $blog->category->name !!}</a>
+                                        <a href="/profiles/{!! $blog->user_id !!}">{!! $blog->user['fullName'] !!}</a>
                                     </span>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="entry__meta">
                                     <span class="entry__meta-links">
-                                        <a href="/">{!! $blog->category->name !!}</a>
+                                        <a href="/profiles/{!! $blog->user_id !!}">{!! $blog->user['fullName'] !!}</a>
                                     </span>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
     ================================================== -->
     <section class="s-extra">
 
-        <div class="row top">
+        {{--<div class="row top">
 
             <div class="col-eight md-six tab-full popular">
                 <h3>Popular Posts</h3>
@@ -150,31 +150,7 @@
 
             </div> <!-- end popular -->
 
-            <div class="col-four md-six tab-full about">
-                <h3>About Philosophy</h3>
-
-                <p>
-                    Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat.
-                    Pellentesque in ipsum id orci porta dapibus.
-                </p>
-
-                <ul class="about__social">
-                    <li>
-                        <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                    </li>
-                </ul> <!-- end header__social -->
-            </div> <!-- end about -->
-
-        </div> <!-- end row -->
+        </div>--}} <!-- end row -->
 
         <div class="row bottom tags-wrap">
             <div class="col-full tags">

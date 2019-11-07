@@ -9,13 +9,13 @@
                 <h1>Hire Is All Your's Recipes</h1>
             </div>
         </div>
-
-        <div class="row">
-            <h1 class="pull-right">
-                <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('exercises.create') !!}">Add New Recipes</a>
-            </h1>
-        </div>
-
+        @auth
+            <div class="row">
+                <h1 class="pull-right">
+                    <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('exercises.create') !!}">Add New Recipes</a>
+                </h1>
+            </div>
+        @endauth
         <div class="row masonry-wrap">
             <div class="masonry">
 
@@ -34,7 +34,6 @@
                                 <div class="entry__header">
 
                                     <div class="entry__date">
-                                        <a href="{!! route('exercises.edit', [$exercise->id]) !!}">Edit</a>
                                         <p>{!! date_format($exercise->created_at, 'M d, Y') !!}</p>
                                     </div>
                                     <h1 class="entry__title"><a href="{!! '/exercises/'.$exercise->id !!}">{!! $exercise->title !!}</a></h1>
@@ -47,7 +46,7 @@
                                 </div>
                                 <div class="entry__meta">
                                     <span class="entry__meta-links">
-                                        <a href="/">{!! $exercise->category->name !!}</a>
+                                        <a href="/profiles/{!! $exercise->user_id !!}">{!! $exercise->user['fullName'] !!}</a>
                                     </span>
                                 </div>
                             </div>

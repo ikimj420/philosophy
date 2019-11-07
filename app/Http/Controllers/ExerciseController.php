@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ExerciseController extends AppBaseController
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show', 'food', 'cocktail');
+    }
     /**
      * Display a listing of the Exercise.
      *
@@ -109,6 +113,10 @@ class ExerciseController extends AppBaseController
      */
     public function edit(Exercise $exercise)
     {
+        if(Auth::id() !== $exercise->user_id && Auth::user()->isAdmin !== 1){
+            return redirect('/');
+        }
+
         $categories = Category::where('subCategory', '=', '2')->get();
 
         if (empty($exercise)) {
