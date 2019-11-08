@@ -52,7 +52,9 @@ class Category extends Model
      */
     public static $rules = [
         'name' => 'required',
-        'subCategory' => 'required'
+        'subCategory' => 'required',
+
+        'desc' => 'sometimes',
     ];
 
     /**

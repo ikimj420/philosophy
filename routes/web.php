@@ -21,13 +21,15 @@ Route::patch('/profiles/{user}', 'ProfilesController@update')->name('profiles.up
 Route::delete('/profiles/{user}', 'ProfilesController@destroy')->name('profiles.destroy');
 //Category
 Route::resource('categories', 'CategoryController');
-//ToDo
+//To-Do
 Route::resource('assignments', 'AssignmentController');
+//mark as done
+Route::patch('/assignments/{assignment}/done', 'AssignmentController@done')->name('assignments.done');
 //Add Remove Favorite
-Route::post('/favorite/{id} ', 'FavoriteController@saveExercise')->name('favorite.saveExercise');
-Route::delete('/favorite/{id} ', 'FavoriteController@destroyExercise')->name('favorite.destroyExercise');
-Route::post('/favorites/{id} ', 'FavoriteController@saveBlog')->name('favorites.saveBlog');
-Route::delete('/favorites/{id} ', 'FavoriteController@destroyBlog')->name('favorites.destroyBlog');
+Route::post('/favorite/{id}', 'FavoriteController@saveExercise')->name('favorite.saveExercise');
+Route::delete('/favorite/{id}', 'FavoriteController@destroyExercise')->name('favorite.destroyExercise');
+Route::post('/favorites/{id}', 'FavoriteController@saveBlog')->name('favorites.saveBlog');
+Route::delete('/favorites/{id}', 'FavoriteController@destroyBlog')->name('favorites.destroyBlog');
 //Blog
 Route::resource('blogs', 'BlogController');
 //Blog ShowCode

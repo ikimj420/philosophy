@@ -2259,7 +2259,7 @@ Reference: http://blog.rrwd.nl/2015/04/04/the-screen-reader-text-class-why-and-h
 
 .mejs__captions-layer a {
    color: #fff;
-   text-decoration: underline;
+   text-decoration: none;
 }
 
 .mejs__captions-layer[lang=ar] {

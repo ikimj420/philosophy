@@ -13,53 +13,45 @@
         @endforeach
     </select>
 </div>
-
 <!-- Title Field -->
 <div class="full-width">
-    {!! Form::label('title', 'Title:') !!}
+    {!! Form::label('title', 'Title') !!}
     {!! Form::text('title', null, ['class' => 'full-width']) !!}
 </div>
-
 <!-- Ingredients Field -->
 <div class="full-width">
-    {!! Form::label('ingredients', 'Ingredients:') !!}
+    {!! Form::label('ingredients', 'Ingredients') !!}
     {!! Form::textarea('ingredients', null, ['class' => 'full-width']) !!}
 </div>
-
 <!-- Make Field -->
 <div class="full-width">
-    {!! Form::label('make', 'Make:') !!}
+    {!! Form::label('make', 'How To Make') !!}
     {!! Form::textarea('make', null, ['class' => 'full-width']) !!}
 </div>
-
-<!-- Frommin Field -->
-<div class="full-width">
-    {!! Form::label('fromMin', 'Frommin:') !!}
-    {!! Form::number('fromMin', null, ['class' => 'full-width']) !!}
-</div>
-
 <!-- Video Field -->
 <div class="full-width">
-    {!! Form::label('video', 'Video:') !!}
-    {!! Form::text('video', null, ['class' => 'full-width']) !!}
+    {!! Form::label('video', 'Video') !!}
+    {!! Form::text('video', null, ['class' => 'full-width', 'placeholder' => 'Only Embed Code https://www.youtube.com/embed/hn3wJ1_1Zsg']) !!}
 </div>
-
+<!-- Frommin Field -->
+<div class="full-width">
+    {!! Form::label('fromMin', 'Video To Start From min.') !!}
+    {!! Form::number('fromMin', null, ['class' => 'full-width']) !!}
+</div>
 <!-- Tags Field -->
 <div class="full-width">
-    {!! Form::label('exercise_tag', 'Tags:') !!}
-    {!! Form::text('exercise_tag', $exercise->tagList ?? null, ['class' => 'full-width']) !!}
+    {!! Form::label('exercise_tag', 'Tags') !!}
+    {!! Form::text('exercise_tag', $exercise->tagList ?? null, ['class' => 'full-width', 'placeholder' => 'After Each Tag A Comma Is Required']) !!}
 </div>
-
 <!-- Pics Field -->
 <div class="full-width">
-    {!! Form::label('pics', 'Pics:') !!}
+    {!! Form::label('pics', 'Picture') !!}
     {!! Form::file('pics', null, ['class' => 'full-width']) !!}
     @if(!empty($exercise))
         {!! Form::hidden('pics', null, ['class' => 'full-width']) !!}
         <img src="/storage/exercise/{!! $exercise->pics !!}" style="width: 10%" alt="{!! $exercise->name !!}">
     @endif
 </div>
-
 <!-- Submit Field -->
 <div class="full-width">
     {!! Form::submit('Save', ['class' => 'btn full-width']) !!}

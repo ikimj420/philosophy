@@ -14,52 +14,37 @@ class ProfilesController extends AppBaseController
 {
     public function __construct()
     {
+        //auth user update delete
         $this->middleware('auth')->except('show');
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(User $user)
     {
-        $blogs = $user->favorite(Blog::class); // returns a collection with the Blog the User marked as favorite
-        $exercises = $user->favorite(Exercise::class); // returns a collection with the Exercise the User marked as favorite
-
+        // returns a collection with the Blog the User marked as favorite
+        $blogs = $user->favorite(Blog::class);
+        // returns a collection with the Exercise the User marked as favorite
+        $exercises = $user->favorite(Exercise::class);
         return view('profiles.show', compact('user', 'blogs', 'exercises'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function edit(User $user)
     {
+        //check if is user or admin
         if(Auth::id() !== $user->id && Auth::user()->isAdmin !== 1){
             return redirect('/');
         }
-
         return view('profiles.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, User $user)
     {
         if (empty($user)) {
             return redirect(route('home'));
         }
+        //save picture
         $folder = 'user';
         $img_request = $request->hasFile('pics');
-
+        //check picture
         if(Request()->hasFile('pics')){
             $img = Request()->file('pics');
             if($user->pics != 'default.png'){
@@ -69,9 +54,8 @@ class ProfilesController extends AppBaseController
             $filenameToStore = $this->updateImage($img_request, $img, $folder);
             $user->pics = $filenameToStore;
         }
-
+        //update user
         $user->update($this->validateRequest());
-
         return redirect('/profiles/'.$user->id)->with('success','User Updated Successfully!');
     }
 
@@ -80,13 +64,12 @@ class ProfilesController extends AppBaseController
         if (empty($user)) {
             return redirect(route('welcome'));
         }
-
+        //delete user
         $user->delete();
         if($user->pics != 'default.png'){
             // Delete Image
             Storage::delete('public/user/'.$user->pics);
         }
-
         return redirect(route('welcome'))->with('success','User Deleted Successfully!');
     }
 

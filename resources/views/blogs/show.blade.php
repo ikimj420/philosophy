@@ -1,9 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.site')
 @section('content')
     <!-- s-content
 ================================================== -->
     <section class="s-content s-content--narrow s-content--no-padding-bottom">
-
         <article class="row format-video">
             @auth
                 @if(Auth::id() === $blog->user_id || Auth::user()->isAdmin === 1)
@@ -43,11 +42,10 @@
                     </li>
                 </ul>
             </div> <!-- end s-content__header -->
-
             @if(!empty($blog->video))
                 <div class="s-content__media col-full">
                     <div class="video-container">
-                        <iframe src="{!! $blog->video !!}?color=01aef0&title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <iframe src="{!! $blog->video !!}" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     </div>
                 </div> <!-- end s-content__media -->
             @endif
@@ -55,31 +53,26 @@
             <div class="s-content__media col-full">
                 <div class="s-content__post-thumb">
                     <img src="{!! asset('/storage/blog/'.$blog->pics) !!}" alt="" >
-
                     <div class="audio-wrap">
                         <audio id="player2" src="{!! $blog->audio !!}" width="100%" height="42" controls="controls"></audio>
                     </div>
                 </div>
             </div> <!-- end s-content__media -->
             @endif
-
             <div class="col-full s-content__main">
                 @if ($blog->body != "")
                     @foreach($blog->getBlogBodyAttribute() as $body)
                         <p> {!! $body !!}</p>
                     @endforeach
                 @endif
-
                 <p>
                     <img src="{{ asset('/storage/blog/'. $blog->pics) }}" alt="{!! $blog->title !!}" >
                 </p>
-
                 @if(!empty($blog->code))
                     <pre><code>{!! $blog->code !!}</code></pre>
                 @endif
                 <p class="s-content__tags">
                     <span>Post Tags</span>
-
                     <span class="s-content__tag-list">
                         @forelse($blog->tags as $tag)
                             <a href="/tag/tags/{{ $tag }}">{!! $tag->normalized !!}</a>
@@ -88,7 +81,6 @@
                         @endforelse
                     </span>
                 </p> <!-- end s-content__tags -->
-
                     <div class="s-content__author">
                         <img src="{{ asset('/storage/user/'. $blog->user->pics) }}" alt="{!! $blog->user->fullName !!}">
                         <div class="s-content__author-about">
@@ -118,16 +110,12 @@
 
             </div> <!-- end s-content__main -->
         </article>
-
         <!-- comments
             ================================================== -->
         <div class="comments-wrap">
-
             <div id="comments" class="row">
                 <div class="col-full">
-
                     @comments(['model' => $blog])
-
                 </div>
             </div>
         </div>

@@ -22,9 +22,8 @@ class ContactController extends Controller
             'email' => 'required|email',
             'message' => 'required',
         ]);
-
+        //
         Mail::to('philosphy@test.com')->send(new ContactMail($data));
-
         return back()->with('success','Message Sent Successfully!');
     }
 }

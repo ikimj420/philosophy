@@ -52,6 +52,7 @@ class Assignment extends Model
      */
     public static $rules = [
         'body' => 'required',
+        'date' => 'sometimes',
         'isDone' => 'sometimes'
     ];
 

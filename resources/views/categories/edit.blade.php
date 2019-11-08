@@ -3,21 +3,21 @@
     <!-- styles
         ================================================== -->
     <section id="styles" class="s-styles">
+        <div class="row narrow">
+            <div class="col-full s-content__header" data-aos="fade-up">
+                <h1>Edit Category</h1>
+            </div>
+        </div>
         <div class="row add-bottom">
             <div class="row">
-
                 <div class="col-full s-content__main">
+                    {!! Form::model($category, ['route' => ['categories.update', $category->id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
+                        @include('categories.fields')
+                    {!! Form::close() !!}
                     {!! Form::open(['route' => ['categories.destroy', $category->id], 'method' => 'delete']) !!}
-                    <div class='btn-group'>
+                    <div class='full-width'>
                         {!! Form::button('Delete', ['type' => 'submit', 'class' => 'btn btn--primary full-width', 'onclick' => "return confirm('Are you sure?')"]) !!}
                     </div>
-                    {!! Form::close() !!}
-                    <h3 class="add-bottom">Category</h3>
-
-                    {!! Form::model($category, ['route' => ['categories.update', $category->id], 'method' => 'patch', 'enctype' => 'multipart/form-data']) !!}
-
-                    @include('categories.fields')
-
                     {!! Form::close() !!}
                 </div>
             </div> <!-- end row -->

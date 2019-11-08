@@ -21,7 +21,7 @@
 
     // svg fallback
     if (!Modernizr.svg) {
-        $(".header__logo img").attr("src", "images/logo.png");
+        $(".header__logo img").attr("src", "/storage/site/logo.png");
     }
 
 
@@ -390,9 +390,9 @@
 
             // marker url
             if ( winWidth > 480 ) {
-                marker_url = 'images/icon-location@2x.png';
+                marker_url = '/storage/site/icon-location@2x.png';
             } else {
-                marker_url = 'images/icon-location.png';
+                marker_url = '/storage/site/icon-location.png';
             }
 
             // map style

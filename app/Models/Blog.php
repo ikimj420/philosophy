@@ -66,8 +66,15 @@ class Blog extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'required',
-        'body' => 'required'
+        'title' => 'required|min:4',
+        'body' => 'required',
+        'category_id' => 'required',
+
+        'user_id' => 'sometimes',
+        'code' => 'sometimes',
+        'audio' => 'sometimes',
+        'video' => 'sometimes',
+        'tag' => 'sometimes',
     ];
 
     /**

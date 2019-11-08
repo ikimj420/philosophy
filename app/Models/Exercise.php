@@ -66,9 +66,15 @@ class Exercise extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'required',
+        'title' => 'required|min:4',
         'ingredients' => 'required',
-        'make' => 'required'
+        'make' => 'required',
+        'category_id' => 'required',
+
+        'user_id' => 'sometimes',
+        'fromMin' => 'sometimes',
+        'video' => 'sometimes',
+        'tag' => 'sometimes',
     ];
 
     /**
